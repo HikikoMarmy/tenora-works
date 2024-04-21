@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.ExceptionServices;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -24,9 +25,36 @@ namespace PSULib.FileClasses.Missions.Sets
     {
         public static readonly Dictionary<int, SetObjectDefinition> definitions = new Dictionary<int, SetObjectDefinition>();
 
-        static SetObjectDefinitions()
+		static public SetObjectDefinition FindOrDefault( int objectType )
         {
-            definitions[4] = new SetObjectDefinition("TObjUnbreak", 44, 44);
+            if( !definitions.ContainsKey(objectType) )
+            {
+                return definitions[0];
+			}
+
+            return definitions[objectType];
+		}
+
+        static public int IndexOf( int objectType )
+        {
+            int index = 0;
+            foreach (var v in definitions)
+            {
+                if (v.Key == objectType)
+                {
+                    return index;
+                }
+
+                index++;
+            }
+            return -1;
+        }
+
+		static SetObjectDefinitions()
+        {
+			definitions[0] = new SetObjectDefinition("TObjNull", 0, 0);
+
+			definitions[4] = new SetObjectDefinition("TObjUnbreak", 44, 44);
             definitions[5] = new SetObjectDefinition("TObjSwitchContact", 60, 64);
             definitions[6] = new SetObjectDefinition("TObjColliEffect", 64, 64);
             definitions[9] = new SetObjectDefinition("TObjColliEvent", 68, 72);
@@ -37,9 +65,9 @@ namespace PSULib.FileClasses.Missions.Sets
             definitions[18] = new SetObjectDefinition("TObjNpc", 36, 36);
             definitions[20] = new SetObjectDefinition("TObjDoor", 28, 32);
             definitions[22] = new SetObjectDefinition("TObjSwitchTerminal", 44, 44);
-            definitions[23] = new SetObjectDefinition("TEnemyGateway", 100, 100);
-            definitions[24] = new SetObjectDefinition("TEnemyGateway", 100, 100);
-            definitions[25] = new SetObjectDefinition("TEnemyGateway", 100, 100);
+            definitions[23] = new SetObjectDefinition("TEnemyGateway (10)", 100, 100);
+            definitions[24] = new SetObjectDefinition("TEnemyGateway (30)", 100, 100);
+            definitions[25] = new SetObjectDefinition("TEnemyGateway (50)", 100, 100);
             definitions[26] = new SetObjectDefinition("TObjColliStartWithEvent", 144, 144);
             definitions[27] = new SetObjectDefinition("TObjColliGoalWithEvent", 108, 108);
             definitions[28] = new SetObjectDefinition("TObjColliPositionFlag", 4, 4);
@@ -81,6 +109,7 @@ namespace PSULib.FileClasses.Missions.Sets
             definitions[69] = new SetObjectDefinition("TMyRoomSetterCamera", 28, 28);
             definitions[70] = new SetObjectDefinition("TObjFixedBatteryIlminas", 124, 124);
             definitions[71] = new SetObjectDefinition("TObjBurstTrapIlminas", 136, 140);
+
             definitions[72] = new SetObjectDefinition("8TObjDrop", 0, 56);
             definitions[73] = new SetObjectDefinition("15TObjColliAttack", 0, 72);
             definitions[74] = new SetObjectDefinition("12TObjTrapPath", 0, 32);

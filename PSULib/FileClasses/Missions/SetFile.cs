@@ -31,7 +31,7 @@ namespace PSULib.FileClasses.Missions
             [DataMember]
             public short headerShort1;
             [DataMember]
-            public short objID;
+            public short objectType;
             [DataMember]
             public int unkInt1;
             [DataMember]
@@ -136,7 +136,7 @@ namespace PSULib.FileClasses.Missions
                         temp.headerInt2 = fileReader.ReadInt32();
                         temp.headerInt3 = fileReader.ReadInt32();
                         temp.headerShort1 = fileReader.ReadInt16();
-                        temp.objID = fileReader.ReadInt16();
+                        temp.objectType = fileReader.ReadInt16();
                         temp.unkInt1 = fileReader.ReadInt32();
                         temp.objX = fileReader.ReadSingle();
                         temp.objY = fileReader.ReadSingle();
@@ -189,7 +189,7 @@ namespace PSULib.FileClasses.Missions
                         outWriter.Write(tempObj.headerInt2);
                         outWriter.Write(tempObj.headerInt3);
                         outWriter.Write(tempObj.headerShort1);
-                        outWriter.Write(tempObj.objID);
+                        outWriter.Write(tempObj.objectType);
                         outWriter.Write(tempObj.unkInt1);
                         outWriter.Write(tempObj.objX);
                         outWriter.Write(tempObj.objY);
