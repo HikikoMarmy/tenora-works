@@ -51,7 +51,10 @@ namespace psu_generic_parser
             InitializeComponent();
             Text += System.Reflection.Assembly.GetExecutingAssembly().GetName().Version;
             setAFSEnabled(false);
-        }
+
+			ResizeBegin += (s, e) => { this.SuspendLayout(); };
+			ResizeEnd += (s, e) => { this.ResumeLayout(true); };
+		}
 
         private void openToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -1829,5 +1832,46 @@ namespace psu_generic_parser
                 }
             }
         }
-    }
+
+		private void viewCurrentFileInHexToolStripMenuItem_Click(object sender, EventArgs e)
+		{
+			if (currentRight != null)
+			{
+				PointeredFile pointeredFile = null;
+				byte[] file = currentRight.ToRaw();
+				if (currentRight.calculatedPointers != null)
+				{
+					if (currentRight is PointeredFile)
+					{
+						pointeredFile = (PointeredFile)currentRight;
+					}
+					else
+					{
+						//For now, Big Endian files don't really need to be considered here since they'd be a PointeredFile already. Possibly add in further support if added elsewhere later
+						pointeredFile = new PointeredFile(currentRight.filename, file, currentRight.header, currentRight.calculatedPointers, 0, false);
+					}
+					pointeredFile.ToRaw();
+				}
+
+				string headingText = $"Selected File: {currentRight.filename}";
+
+				if (currentFileHexForm != null)
+				{
+					currentFileHexForm.Close();
+				}
+				if (pointeredFile != null)
+				{
+					currentFileHexForm = new HexEditForm(file, headingText, true,
+						pointeredFile);
+				}
+				else
+				{
+					currentFileHexForm = new HexEditForm(file, headingText, true,
+						null);
+				}
+
+				currentFileHexForm.Show();
+			}
+		}
+	}
 }

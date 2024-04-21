@@ -9,7 +9,7 @@
     <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>psu_generic_parser</RootNamespace>
-    <AssemblyName>psu generic parser</AssemblyName>
+    <AssemblyName>Tenora Works Toolkit</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <FileUpgradeFlags>
@@ -235,10 +235,10 @@
     <Compile Include="Forms\FileViewers\RmagBulletViewer.Designer.cs">
       <DependentUpon>RmagBulletViewer.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\FileViewers\ScriptFileViewer.cs">
+    <Compile Include="Forms\FileViewers\Scripts\ScriptFileViewer.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Forms\FileViewers\ScriptFileViewer.Designer.cs">
+    <Compile Include="Forms\FileViewers\Scripts\ScriptFileViewer.Designer.cs">
       <DependentUpon>ScriptFileViewer.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\FileViewers\Scripts\ReferenceFindDialog.cs">
@@ -247,6 +247,12 @@
     <Compile Include="Forms\FileViewers\Scripts\ReferenceFindDialog.Designer.cs">
       <DependentUpon>ReferenceFindDialog.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\FileViewers\Scripts\ScriptPeek.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\FileViewers\Scripts\ScriptPeek.Designer.cs">
+      <DependentUpon>ScriptPeek.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\FileViewers\SetEditorSupportClasses\HexMetadataEditor.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -254,6 +260,36 @@
       <DependentUpon>HexMetadataEditor.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\FileViewers\SetEditorSupportClasses\SetObjectMetadataEditors.cs" />
+    <Compile Include="Forms\FileViewers\SetEditorSupportClasses\TObjBreakEditor.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Forms\FileViewers\SetEditorSupportClasses\TObjBreakEditor.Designer.cs">
+      <DependentUpon>TObjBreakEditor.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\FileViewers\SetEditorSupportClasses\ObjectFlagEditor.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Forms\FileViewers\SetEditorSupportClasses\ObjectFlagEditor.Designer.cs">
+      <DependentUpon>ObjectFlagEditor.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\FileViewers\SetEditorSupportClasses\TObjKey.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Forms\FileViewers\SetEditorSupportClasses\TObjKey.Designer.cs">
+      <DependentUpon>TObjKey.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\FileViewers\SetEditorSupportClasses\TObjSwitchTerminal.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Forms\FileViewers\SetEditorSupportClasses\TObjSwitchTerminal.Designer.cs">
+      <DependentUpon>TObjSwitchTerminal.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\FileViewers\SetEditorSupportClasses\TObjUnitTransporter.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Forms\FileViewers\SetEditorSupportClasses\TObjUnitTransporter.Designer.cs">
+      <DependentUpon>TObjUnitTransporter.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\FileViewers\SetFileViewer.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -420,15 +456,33 @@
       <DependentUpon>RmagBulletViewer.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\FileViewers\ScriptFileViewer.resx">
+    <EmbeddedResource Include="Forms\FileViewers\Scripts\ScriptFileViewer.resx">
       <DependentUpon>ScriptFileViewer.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\FileViewers\Scripts\ReferenceFindDialog.resx">
       <DependentUpon>ReferenceFindDialog.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Forms\FileViewers\Scripts\ScriptPeek.resx">
+      <DependentUpon>ScriptPeek.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\FileViewers\SetEditorSupportClasses\HexMetadataEditor.resx">
       <DependentUpon>HexMetadataEditor.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\FileViewers\SetEditorSupportClasses\TObjBreakEditor.resx">
+      <DependentUpon>TObjBreakEditor.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\FileViewers\SetEditorSupportClasses\ObjectFlagEditor.resx">
+      <DependentUpon>ObjectFlagEditor.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\FileViewers\SetEditorSupportClasses\TObjKey.resx">
+      <DependentUpon>TObjKey.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\FileViewers\SetEditorSupportClasses\TObjSwitchTerminal.resx">
+      <DependentUpon>TObjSwitchTerminal.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\FileViewers\SetEditorSupportClasses\TObjUnitTransporter.resx">
+      <DependentUpon>TObjUnitTransporter.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\FileViewers\SetFileViewer.resx">
       <DependentUpon>SetFileViewer.cs</DependentUpon>

@@ -30,19 +30,38 @@ namespace psu_generic_parser
 
         private void InitializeDisplay()
         {
-            areaIdComboBox.SelectedIndex = internalFile.areaID;
-            //Initially load first set of first map list
-            //Load Map List. This won't change again for this set file
-            mapListCB.BeginUpdate();
-            for (int i = 0; i < internalFile.mapData.Length; i++)
-            {
-                mapListCB.Items.Add(internalFile.mapData[i].mapNumber);
-            }
-            mapListCB.EndUpdate();
-            mapListCB.SelectedIndex = 0;
+			try
+			{
+				setObjectTypeComboBox.BeginUpdate();
+				{
+					foreach (var type in SetObjectDefinitions.definitions)
+					{
+						setObjectTypeComboBox.Items.Add("[" + type.Key.ToString("D2") + "] " + type.Value.name);
+					}
+				}
+				setObjectTypeComboBox.EndUpdate();
 
-            //Load Object Set from mapList 0; it should default to this
-            updateObjectList();
+				setObjectTypeComboBox.Tag = true;
+				setObjectTypeComboBox.SelectedIndex = 0;
+
+				areaIdComboBox.SelectedIndex = internalFile.areaID;
+				//Initially load first set of first map list
+				//Load Map List. This won't change again for this set file
+				mapListCB.BeginUpdate();
+				for (int i = 0; i < internalFile.mapData.Length; i++)
+				{
+					mapListCB.Items.Add(internalFile.mapData[i].mapNumber);
+				}
+				mapListCB.EndUpdate();
+				mapListCB.SelectedIndex = 0;
+			}
+			finally
+			{
+				setObjectTypeComboBox.Tag = null;
+			}
+
+			//Load Object Set from mapList 0; it should default to this
+			updateObjectList();
         }
 
         //Updates object display visuals to current object's
@@ -52,28 +71,37 @@ namespace psu_generic_parser
             {
                 objectMetaData.Close();
             }
-            objectEntry = internalFile.mapData[mapListCB.SelectedIndex].headers[objectListCB.SelectedIndex].objects[setObjectListBox.SelectedIndex];
-            objIDUD.Value = objectEntry.objID;
-            unkIntUD.Value = objectEntry.unkInt1;
-            posXUD.Value = Convert.ToDecimal(objectEntry.objX);
-            posYUD.Value = Convert.ToDecimal(objectEntry.objY);
-            posZUD.Value = Convert.ToDecimal(objectEntry.objZ);
-            rotXUD.Value = Convert.ToDecimal(objectEntry.objRotX);
-            rotYUD.Value = Convert.ToDecimal(objectEntry.objRotY);
-            rotZUD.Value = Convert.ToDecimal(objectEntry.objRotZ);
-            headerInt1UD.Value = Convert.ToDecimal(objectEntry.headerInt1);
-            headerInt2UD.Value = Convert.ToDecimal(objectEntry.headerInt2);
-            headerInt3UD.Value = Convert.ToDecimal(objectEntry.headerInt3);
-            headerShort1UD.Value = Convert.ToDecimal(objectEntry.headerShort1);
 
-            if(SetObjectDefinitions.definitions.ContainsKey(objectEntry.objID))
-            {
-                objectNameLabel.Text = SetObjectDefinitions.definitions[objectEntry.objID].name;
-            }
-            else
-            {
-                objectNameLabel.Text = "INVALID OBJECT";
-            }
+			try
+			{
+				var objectListIdx = objectListBox.SelectedIndex;
+				var objectIndexIdx = setObjectListBox.SelectedIndex;
+
+                if (objectIndexIdx < 0 || objectListIdx < 0) return;
+
+				objectEntry = internalFile.mapData[mapListCB.SelectedIndex].headers[objectListIdx].objects[objectIndexIdx];
+
+				setObjectTypeComboBox.Tag = true;
+
+				setObjectTypeComboBox.SelectedIndex = SetObjectDefinitions.IndexOf( objectEntry.objectType );
+
+				unkIntUD.Value = objectEntry.unkInt1;
+				posXUD.Value = Convert.ToDecimal(objectEntry.objX);
+				posYUD.Value = Convert.ToDecimal(objectEntry.objY);
+				posZUD.Value = Convert.ToDecimal(objectEntry.objZ);
+				rotXUD.Value = Convert.ToDecimal(objectEntry.objRotX);
+				rotYUD.Value = Convert.ToDecimal(objectEntry.objRotY);
+				rotZUD.Value = Convert.ToDecimal(objectEntry.objRotZ);
+				headerInt1UD.Value = Convert.ToDecimal(objectEntry.headerInt1);
+				headerInt2UD.Value = Convert.ToDecimal(objectEntry.headerInt2);
+				headerInt3UD.Value = Convert.ToDecimal(objectEntry.headerInt3);
+				headerShort1UD.Value = Convert.ToDecimal(objectEntry.headerShort1);
+			}
+			finally
+			{
+				setObjectTypeComboBox.Tag = null;
+			}
+
             reloadMetadataEditor();
         }
 
@@ -90,14 +118,14 @@ namespace psu_generic_parser
 
         private void updateObjectList()
         {
-            objectListCB.BeginUpdate();
-            objectListCB.Items.Clear();
+			objectListBox.BeginUpdate();
+			objectListBox.Items.Clear();
             for(int i = 0; i < internalFile.mapData[mapListCB.SelectedIndex].headers.Length; i++)
             {
-                objectListCB.Items.Add(i);
+                objectListBox.Items.Add("Entity List" + i);
             }
-            objectListCB.EndUpdate();
-            objectListCB.SelectedIndex = 0;
+			objectListBox.EndUpdate();
+			objectListBox.SelectedIndex = 0;
 
             //Update Object List
             updateObjectListBox();
@@ -105,15 +133,29 @@ namespace psu_generic_parser
 
         private void updateObjectListBox()
         {
-            setObjectListBox.BeginUpdate();
-            setObjectListBox.Items.Clear();
-            ListHeader header = internalFile.mapData[mapListCB.SelectedIndex].headers[objectListCB.SelectedIndex];
-            for (int i = 0; i < header.objects.Length; i++)
+            if(objectListBox.SelectedIndex < 0 )
             {
-                setObjectListBox.Items.Add("Object " + i);
+                objectListBox.SelectedIndex = 0;
+			}
+
+			ListHeader header = internalFile.mapData[mapListCB.SelectedIndex].headers[objectListBox.SelectedIndex];
+
+			setObjectListBox.BeginUpdate();
+            {
+                setObjectListBox.Items.Clear();
+                
+                for (int i = 0; i < header.objects.Length; i++)
+                {
+                    var o = SetObjectDefinitions.FindOrDefault(header.objects[i].objectType);
+                    setObjectListBox.Items.Add("[" + i.ToString("D4") + "] " + o.name);
+                }
             }
             setObjectListBox.EndUpdate();
-            setObjectListBox.SelectedIndex = 0;
+
+            if( setObjectListBox.Items.Count > 0 )
+            {
+                setObjectListBox.SelectedIndex = 0;
+            }
 
             unusedHeaderInt1UD.Value = Convert.ToDecimal(header.unusedInt1);
 
@@ -160,7 +202,12 @@ namespace psu_generic_parser
             updateObjectDisplay();
         }
 
-        private void mapListCB_SelectedIndexChanged(object sender, EventArgs e)
+		private void setObjectListBox_MouseDown(object sender, MouseEventArgs e)
+		{
+			setObjectListBox.SelectedIndex = setObjectListBox.IndexFromPoint(e.Location);
+		}
+
+		private void mapListCB_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (currentMapIndex != mapListCB.SelectedIndex)
             {
@@ -170,10 +217,15 @@ namespace psu_generic_parser
             }
         }
 
-        private void objectListCB_SelectedIndexChanged(object sender, EventArgs e)
+        private void objectListBox_SelectedIndexChanged(object sender, EventArgs e)
         {
             updateObjectListBox();
         }
+
+        private void objectListBox_MouseDown( object sender, MouseEventArgs e )
+        {
+			objectListBox.SelectedIndex = objectListBox.IndexFromPoint(e.Location);
+		}
 
         private void addMapListButton_Click(object sender, EventArgs e)
         {
@@ -221,153 +273,6 @@ namespace psu_generic_parser
             {
                 MessageBox.Show("You cannot remove the last Map List!");
             }
-        }
-
-        private void addObjectList_Click(object sender, EventArgs e)
-        {
-            List<ListHeader> newHeaderList = internalFile.mapData[mapListCB.SelectedIndex].headers.ToList();
-
-            ObjectEntry[] newObjectList = new ObjectEntry[1];
-            newObjectList[0] = new ObjectEntry();
-            newObjectList[0].metadata = new byte[0];
-
-            ListHeader newListHeader = new ListHeader();
-            newListHeader.objects = newObjectList;
-            newHeaderList.Add(newListHeader);
-
-            internalFile.mapData[mapListCB.SelectedIndex].headers = newHeaderList.ToArray();
-
-            objectListCB.BeginUpdate();
-            objectListCB.Items.Add("New " + objectListCB.Items.Count);
-            objectListCB.EndUpdate();
-            objectListCB.SelectedIndex = objectListCB.Items.Count - 1;
-
-        }
-
-        private void removeObjectList_Click(object sender, EventArgs e)
-        {
-            if (internalFile.mapData[mapListCB.SelectedIndex].headers.Length > 1)
-            {
-                int temp = 0;
-                List<ListHeader> newListHeaderList = internalFile.mapData[mapListCB.SelectedIndex].headers.ToList();
-                newListHeaderList.RemoveAt(objectListCB.SelectedIndex);
-                internalFile.mapData[mapListCB.SelectedIndex].headers = newListHeaderList.ToArray();
-
-                objectListCB.BeginUpdate();
-                if (objectListCB.SelectedIndex > 0)
-                {
-                    temp = objectListCB.SelectedIndex - 1;
-                }
-                objectListCB.Items.RemoveAt(objectListCB.SelectedIndex);
-                objectListCB.EndUpdate();
-                objectListCB.SelectedIndex = temp;
-                
-            }
-            else
-            {
-                MessageBox.Show("You cannot remove the last Object List!");
-            }
-        }
-
-        private void addObjectButton_Click(object sender, EventArgs e)
-        {
-            List<ObjectEntry> newObjList = internalFile.mapData[mapListCB.SelectedIndex].headers[objectListCB.SelectedIndex].objects.ToList();
-            ObjectEntry newObjectEntry = new ObjectEntry();
-            newObjectEntry.metadata = new byte[4];
-            newObjList.Add(newObjectEntry);
-            internalFile.mapData[mapListCB.SelectedIndex].headers[objectListCB.SelectedIndex].objects = newObjList.ToArray();
-
-            setObjectListBox.BeginUpdate();
-            setObjectListBox.Items.Add("New Object " + (setObjectListBox.Items.Count));
-            setObjectListBox.EndUpdate();
-            setObjectListBox.SelectedIndex = setObjectListBox.Items.Count - 1;
-
-        }
-
-        private void removeObjectButton_Click(object sender, EventArgs e)
-        {
-            if (internalFile.mapData[mapListCB.SelectedIndex].headers[objectListCB.SelectedIndex].objects.Length > 1)
-            {
-                List<ObjectEntry> newObjList = internalFile.mapData[mapListCB.SelectedIndex].headers[objectListCB.SelectedIndex].objects.ToList();
-                newObjList.RemoveAt(setObjectListBox.SelectedIndex);
-                internalFile.mapData[mapListCB.SelectedIndex].headers[objectListCB.SelectedIndex].objects = newObjList.ToArray();
-
-                setObjectListBox.BeginUpdate();
-                if (setObjectListBox.SelectedIndex > 0)
-                {
-                    setObjectListBox.SelectedIndex = setObjectListBox.SelectedIndex - 1;
-                }
-                else
-                {
-                    setObjectListBox.SelectedIndex = 0;
-                }
-                setObjectListBox.Items.RemoveAt(setObjectListBox.Items.Count - 1);
-                setObjectListBox.EndUpdate();
-                
-            }
-            else
-            {
-                MessageBox.Show("You cannot remove the last Object!");
-            }
-        }
-
-        private void clearObjectsButton_Click(object sender, EventArgs e)
-        {
-            List<ObjectEntry> newObjList = internalFile.mapData[mapListCB.SelectedIndex].headers[objectListCB.SelectedIndex].objects.ToList();
-            newObjList.Clear();
-            ObjectEntry newObjectEntry = new ObjectEntry();
-            newObjectEntry.metadata = new byte[0];
-            newObjList.Add(newObjectEntry);
-            internalFile.mapData[mapListCB.SelectedIndex].headers[objectListCB.SelectedIndex].objects = newObjList.ToArray();
-
-            setObjectListBox.BeginUpdate();
-            setObjectListBox.Items.Clear();
-            setObjectListBox.Items.Add("New Object " + (setObjectListBox.Items.Count));
-            setObjectListBox.EndUpdate();
-            setObjectListBox.SelectedIndex = 0;
-        }
-
-        private void duplicateObjectButton_Click(object sender, EventArgs e)
-        {
-            List<ObjectEntry> newObjList = internalFile.mapData[mapListCB.SelectedIndex].headers[objectListCB.SelectedIndex].objects.ToList();
-            List<byte> newMetaData = newObjList[setObjectListBox.SelectedIndex].metadata.ToList();
-
-            ObjectEntry newObjectEntry = new ObjectEntry();
-            newObjectEntry.headerInt1 = newObjList[setObjectListBox.SelectedIndex].headerInt1;
-            newObjectEntry.headerInt2 = newObjList[setObjectListBox.SelectedIndex].headerInt2;
-            newObjectEntry.headerInt3 = newObjList[setObjectListBox.SelectedIndex].headerInt3;
-            newObjectEntry.headerShort1 = newObjList[setObjectListBox.SelectedIndex].headerShort1;
-            newObjectEntry.objID = newObjList[setObjectListBox.SelectedIndex].objID;
-            newObjectEntry.objRotX = newObjList[setObjectListBox.SelectedIndex].objRotX;
-            newObjectEntry.objRotY = newObjList[setObjectListBox.SelectedIndex].objRotY;
-            newObjectEntry.objRotZ = newObjList[setObjectListBox.SelectedIndex].objRotZ;
-            newObjectEntry.objX = newObjList[setObjectListBox.SelectedIndex].objX;
-            newObjectEntry.objY = newObjList[setObjectListBox.SelectedIndex].objY;
-            newObjectEntry.objZ = newObjList[setObjectListBox.SelectedIndex].objZ;
-            newObjectEntry.unkInt1 = newObjList[setObjectListBox.SelectedIndex].unkInt1;
-            newObjectEntry.metadata = newMetaData.ToArray();
-            newObjList.Add(newObjectEntry);
-            internalFile.mapData[mapListCB.SelectedIndex].headers[objectListCB.SelectedIndex].objects = newObjList.ToArray();
-
-            setObjectListBox.BeginUpdate();
-            setObjectListBox.Items.Add("Dupe Object " + (setObjectListBox.Items.Count));
-            setObjectListBox.EndUpdate();
-            setObjectListBox.SelectedIndex = setObjectListBox.Items.Count - 1;
-        }
-
-        private void objIDUD_ValueChanged(object sender, EventArgs e)
-        {
-            objectEntry.objID = (short)objIDUD.Value;
-            if(SetObjectDefinitions.definitions.ContainsKey(objectEntry.objID))
-            {
-                //TODO: properly detect Infinity files
-                var def = SetObjectDefinitions.definitions[objectEntry.objID];
-                if(def.metadataLengthAotI > objectEntry.metadata.Length)
-                {
-                    Array.Resize(ref objectEntry.metadata, def.metadataLengthAotI);
-                }
-            }
-            reloadMetadataEditor();
         }
 
         private void unkIntUD_ValueChanged(object sender, EventArgs e)
@@ -418,57 +323,250 @@ namespace psu_generic_parser
 
         private void unusedHeaderInt1NumericUpDown_ValueChanged(object sender, EventArgs e)
         {
-            internalFile.mapData[mapListCB.SelectedIndex].headers[objectListCB.SelectedIndex].unusedInt1 = (int)unusedHeaderInt1UD.Value;
+            internalFile.mapData[mapListCB.SelectedIndex].headers[objectListBox.SelectedIndex].unusedInt1 = (int)unusedHeaderInt1UD.Value;
         }
 
         private void boundSphereValue1NumericUpDown_ValueChanged(object sender, EventArgs e)
         {
-            internalFile.mapData[mapListCB.SelectedIndex].headers[objectListCB.SelectedIndex].unusedBoundSphereValue1 = (int)boundSphereValue1UD.Value;
+            internalFile.mapData[mapListCB.SelectedIndex].headers[objectListBox.SelectedIndex].unusedBoundSphereValue1 = (int)boundSphereValue1UD.Value;
         }
 
         private void boundSphereValue2NumericUpDown_ValueChanged(object sender, EventArgs e)
         {
-            internalFile.mapData[mapListCB.SelectedIndex].headers[objectListCB.SelectedIndex].unusedBoundSphereValue2 = (int)boundSphereValue2UD.Value;
+            internalFile.mapData[mapListCB.SelectedIndex].headers[objectListBox.SelectedIndex].unusedBoundSphereValue2 = (int)boundSphereValue2UD.Value;
         }
 
         private void boundSphereValue3NumericUpDown_ValueChanged(object sender, EventArgs e)
         {
-            internalFile.mapData[mapListCB.SelectedIndex].headers[objectListCB.SelectedIndex].unusedBoundSphereValue3 = (int)boundSphereValue3UD.Value;
+            internalFile.mapData[mapListCB.SelectedIndex].headers[objectListBox.SelectedIndex].unusedBoundSphereValue3 = (int)boundSphereValue3UD.Value;
         }
 
         private void boundSphereValue4NumericUpDown_ValueChanged(object sender, EventArgs e)
         {
-            internalFile.mapData[mapListCB.SelectedIndex].headers[objectListCB.SelectedIndex].unusedBoundSphereValue4 = (int)boundSphereValue4UD.Value;
+            internalFile.mapData[mapListCB.SelectedIndex].headers[objectListBox.SelectedIndex].unusedBoundSphereValue4 = (int)boundSphereValue4UD.Value;
         }
 
         private void unusedShort1NumericUpDown_ValueChanged(object sender, EventArgs e)
         {
-            internalFile.mapData[mapListCB.SelectedIndex].headers[objectListCB.SelectedIndex].unusedShort1 = (short)unusedShort1UD.Value;
+            internalFile.mapData[mapListCB.SelectedIndex].headers[objectListBox.SelectedIndex].unusedShort1 = (short)unusedShort1UD.Value;
         }
 
         private void unknownShort1NumericUpDown_ValueChanged(object sender, EventArgs e)
         {
-            internalFile.mapData[mapListCB.SelectedIndex].headers[objectListCB.SelectedIndex].unknownShort1 = (short)unknownShort1UD.Value;
+            internalFile.mapData[mapListCB.SelectedIndex].headers[objectListBox.SelectedIndex].unknownShort1 = (short)unknownShort1UD.Value;
         }
 
         private void unusedHeaderInt2NumericUpDown_ValueChanged(object sender, EventArgs e)
         {
-            internalFile.mapData[mapListCB.SelectedIndex].headers[objectListCB.SelectedIndex].unusedInt2 = (short)unusedHeaderInt2UD.Value;
+            internalFile.mapData[mapListCB.SelectedIndex].headers[objectListBox.SelectedIndex].unusedInt2 = (short)unusedHeaderInt2UD.Value;
         }
 
         private void listIndexNumericUpDown_ValueChanged(object sender, EventArgs e)
         {
-            internalFile.mapData[mapListCB.SelectedIndex].headers[objectListCB.SelectedIndex].listIndex = (short)listIndexUD.Value;
+            internalFile.mapData[mapListCB.SelectedIndex].headers[objectListBox.SelectedIndex].listIndex = (short)listIndexUD.Value;
         }
 
         private void unknownShortPair1NumericUpDown_ValueChanged(object sender, EventArgs e)
         {
-            internalFile.mapData[mapListCB.SelectedIndex].headers[objectListCB.SelectedIndex].unknownPairedShort1 = (short)unknownPairedShort1UD.Value;
+            internalFile.mapData[mapListCB.SelectedIndex].headers[objectListBox.SelectedIndex].unknownPairedShort1 = (short)unknownPairedShort1UD.Value;
         }
 
         private void unknownShortPair2NumericUpDown_ValueChanged(object sender, EventArgs e)
         {
-            internalFile.mapData[mapListCB.SelectedIndex].headers[objectListCB.SelectedIndex].unknownPairedShort2 = (short)unknownPairedShort2UD.Value;
+            internalFile.mapData[mapListCB.SelectedIndex].headers[objectListBox.SelectedIndex].unknownPairedShort2 = (short)unknownPairedShort2UD.Value;
         }
-    }
+
+		private void setObjectTypeComboBox_SelectedIndexChanged(object sender, EventArgs e)
+		{
+            if (setObjectTypeComboBox.Tag != null) return;
+
+            var selectedObject = setObjectTypeComboBox.SelectedIndex;
+
+            if( selectedObject < 0 || selectedObject >= SetObjectDefinitions.definitions.Count )
+            {
+                return;
+            }
+
+            var definition = SetObjectDefinitions.definitions.ElementAt(selectedObject);
+
+            objectEntry.objectType = (short)definition.Key;
+
+			if (definition.Value.metadataLengthAotI != objectEntry.metadata.Length)
+			{
+				Array.Resize(ref objectEntry.metadata, definition.Value.metadataLengthAotI);
+                Array.Clear(objectEntry.metadata, 0, definition.Value.metadataLengthAotI);
+			}
+
+
+			// Update Object List Entry
+			setObjectListBox.Items[setObjectListBox.SelectedIndex] =
+				"[" + setObjectListBox.SelectedIndex.ToString("D4") + "] " + definition.Value.name;
+
+			reloadMetadataEditor();
+		}
+
+		private void ctxMenuSetObjectList_New_Click(object sender, EventArgs e)
+		{
+			List<ObjectEntry> newObjList = internalFile.mapData[mapListCB.SelectedIndex].headers[objectListBox.SelectedIndex].objects.ToList();
+			ObjectEntry newObjectEntry = new ObjectEntry
+			{
+				metadata = new byte[4]
+			};
+			newObjList.Add(newObjectEntry);
+			internalFile.mapData[mapListCB.SelectedIndex].headers[objectListBox.SelectedIndex].objects = newObjList.ToArray();
+
+			var objectIndex = setObjectListBox.Items.Count;
+
+			setObjectListBox.BeginUpdate();
+			setObjectListBox.Items.Add("[" + objectIndex.ToString("D4") + "] TObjNull");
+			setObjectListBox.EndUpdate();
+			setObjectListBox.SelectedIndex = setObjectListBox.Items.Count - 1;
+		}
+
+		private void ctxMenuSetObjectList_Duplicate_Click(object sender, EventArgs e)
+		{
+			List<ObjectEntry> newObjList = internalFile.mapData[mapListCB.SelectedIndex].headers[objectListBox.SelectedIndex].objects.ToList();
+			List<byte> newMetaData = newObjList[setObjectListBox.SelectedIndex].metadata.ToList();
+
+			ObjectEntry newObjectEntry = new ObjectEntry();
+			newObjectEntry.headerInt1 = newObjList[setObjectListBox.SelectedIndex].headerInt1;
+			newObjectEntry.headerInt2 = newObjList[setObjectListBox.SelectedIndex].headerInt2;
+			newObjectEntry.headerInt3 = newObjList[setObjectListBox.SelectedIndex].headerInt3;
+			newObjectEntry.headerShort1 = newObjList[setObjectListBox.SelectedIndex].headerShort1;
+			newObjectEntry.objectType = newObjList[setObjectListBox.SelectedIndex].objectType;
+			newObjectEntry.objRotX = newObjList[setObjectListBox.SelectedIndex].objRotX;
+			newObjectEntry.objRotY = newObjList[setObjectListBox.SelectedIndex].objRotY;
+			newObjectEntry.objRotZ = newObjList[setObjectListBox.SelectedIndex].objRotZ;
+			newObjectEntry.objX = newObjList[setObjectListBox.SelectedIndex].objX;
+			newObjectEntry.objY = newObjList[setObjectListBox.SelectedIndex].objY;
+			newObjectEntry.objZ = newObjList[setObjectListBox.SelectedIndex].objZ;
+			newObjectEntry.unkInt1 = newObjList[setObjectListBox.SelectedIndex].unkInt1;
+			newObjectEntry.metadata = newMetaData.ToArray();
+			newObjList.Add(newObjectEntry);
+			internalFile.mapData[mapListCB.SelectedIndex].headers[objectListBox.SelectedIndex].objects = newObjList.ToArray();
+
+			var objectIndex = setObjectListBox.Items.Count;
+			var definition = SetObjectDefinitions.definitions[newObjectEntry.objectType];
+
+			setObjectListBox.BeginUpdate();
+			setObjectListBox.Items.Add("[" + objectIndex.ToString("D4") + "] " + definition.name );
+			setObjectListBox.EndUpdate();
+			setObjectListBox.SelectedIndex = setObjectListBox.Items.Count - 1;
+		}
+
+		private void ctxMenuSetObjectList_MoveUp_Click(object sender, EventArgs e)
+		{
+            if(setObjectListBox.SelectedIndex == 0 ) return;
+
+            var currentSetObjectIndex = setObjectListBox.SelectedIndex;
+
+			List<ObjectEntry> objectList = internalFile.mapData[mapListCB.SelectedIndex].headers[objectListBox.SelectedIndex].objects.ToList();
+
+            var tempObject = objectList[currentSetObjectIndex];
+            objectList[currentSetObjectIndex] = objectList[currentSetObjectIndex - 1];
+            objectList[currentSetObjectIndex - 1] = tempObject;
+
+			internalFile.mapData[mapListCB.SelectedIndex].headers[objectListBox.SelectedIndex].objects = objectList.ToArray();
+
+			updateObjectListBox();
+
+            setObjectListBox.SelectedIndex = currentSetObjectIndex-1;
+
+		}
+
+		private void ctxMenuSetObjectList_MoveDown_Click(object sender, EventArgs e)
+		{
+			if (setObjectListBox.SelectedIndex >= setObjectListBox.Items.Count - 1) return;
+
+			var currentSetObjectIndex = setObjectListBox.SelectedIndex;
+
+			List<ObjectEntry> objectList = internalFile.mapData[mapListCB.SelectedIndex].headers[objectListBox.SelectedIndex].objects.ToList();
+
+			var tempObject = objectList[currentSetObjectIndex];
+			objectList[currentSetObjectIndex] = objectList[currentSetObjectIndex + 1];
+			objectList[currentSetObjectIndex + 1] = tempObject;
+
+			internalFile.mapData[mapListCB.SelectedIndex].headers[objectListBox.SelectedIndex].objects = objectList.ToArray();
+
+			updateObjectListBox();
+
+			setObjectListBox.SelectedIndex = currentSetObjectIndex + 1;
+		}
+
+		private void ctxMenuSetObjectList_Delete_Click(object sender, EventArgs e)
+		{
+			if (internalFile.mapData[mapListCB.SelectedIndex].headers[objectListBox.SelectedIndex].objects.Length > 1)
+			{
+				List<ObjectEntry> newObjList = internalFile.mapData[mapListCB.SelectedIndex].headers[objectListBox.SelectedIndex].objects.ToList();
+				newObjList.RemoveAt(setObjectListBox.SelectedIndex);
+				internalFile.mapData[mapListCB.SelectedIndex].headers[objectListBox.SelectedIndex].objects = newObjList.ToArray();
+
+				setObjectListBox.BeginUpdate();
+				if (setObjectListBox.SelectedIndex > 0)
+				{
+					setObjectListBox.SelectedIndex = setObjectListBox.SelectedIndex - 1;
+				}
+				else
+				{
+					setObjectListBox.SelectedIndex = 0;
+				}
+				setObjectListBox.Items.RemoveAt(setObjectListBox.Items.Count - 1);
+				setObjectListBox.EndUpdate();
+
+			}
+			else
+			{
+				MessageBox.Show("You cannot remove the last Object!");
+			}
+		}
+
+		private void ctxMenuObjectList_New_Click(object sender, EventArgs e)
+		{
+			List<ListHeader> newHeaderList = internalFile.mapData[mapListCB.SelectedIndex].headers.ToList();
+
+			ObjectEntry[] newObjectList = new ObjectEntry[1];
+			newObjectList[0] = new ObjectEntry();
+			newObjectList[0].metadata = new byte[0];
+
+			ListHeader newListHeader = new ListHeader();
+			newListHeader.objects = newObjectList;
+			newHeaderList.Add(newListHeader);
+
+			internalFile.mapData[mapListCB.SelectedIndex].headers = newHeaderList.ToArray();
+
+			objectListBox.BeginUpdate();
+			objectListBox.Items.Add("[" + objectListBox.Items.Count.ToString("D2") + "] " + "Object List");
+			objectListBox.EndUpdate();
+			objectListBox.SelectedIndex = objectListBox.Items.Count - 1;
+		}
+
+		private void ctxMenuObjectList_Delete_Click(object sender, EventArgs e)
+		{
+			if (internalFile.mapData[mapListCB.SelectedIndex].headers.Length > 1)
+			{
+				var temp_index = 0;
+				var delete_index = objectListBox.SelectedIndex;
+
+				List<ListHeader> newListHeaderList = internalFile.mapData[mapListCB.SelectedIndex].headers.ToList();
+				newListHeaderList.RemoveAt(objectListBox.SelectedIndex);
+				internalFile.mapData[mapListCB.SelectedIndex].headers = newListHeaderList.ToArray();
+
+				objectListBox.BeginUpdate();
+
+				if (objectListBox.SelectedIndex > 0)
+				{
+					temp_index = objectListBox.SelectedIndex - 1;
+				}
+
+				objectListBox.SelectedIndex = temp_index;
+				objectListBox.Items.RemoveAt(delete_index);
+				objectListBox.EndUpdate();
+
+			}
+			else
+			{
+				MessageBox.Show("You cannot remove the last Object List!");
+			}
+		}
+	}
 }
