@@ -24,6 +24,14 @@ namespace PSULib.FileClasses.General
             StringVariableName, //This is a local string, just a mnemonic to help the parser
         }
 
+        public enum SubRoutineTypes
+        {
+			Numeric = 0x3C,
+			String = 0x49,
+			Function = 0x4C,
+		}
+
+
         //As far as I can tell, these are the only ones that aren't type NONE.
         //The old list had a bunch of the unused opcodes marked as taking strings. I'm not sure why.
         private static readonly Dictionary<int, OpCodeOperandTypes> opCodeOperandTypeDictionary = new Dictionary<int, OpCodeOperandTypes>()
@@ -93,30 +101,30 @@ namespace PSULib.FileClasses.General
 
         public static string[] opcodes =
         {
-            "return",
+            "RETURN",
             "NOP",
-            "Push int",
-            "Push float",
-            "Add",
+            "Push Integer",
+            "Push Float",
+            "Addition",
             "Subtract",
             "Multiply",
             "Divide",
             "Modulo",
-            "Shift left",
-            "Shift right",
-            "Binary And",
-            "Binary Or",
-            "Binary Xor",
+            "Shift Left",
+            "Shift Right",
+            "Binary AND",
+            "Binary OR",
+            "Binary XOR",
             "Increment",
             "Decrement",
             "Negate",
             "Absolute Value",
-            "Test equal",
-            "Test not equal",
-            "Test greater than or equal",
-            "Test greater than",
-            "Test less than or equal",
-            "Test less than",
+            "Is Equal",
+            "Is NOT Equal",
+            "Is Greater OR Equal",
+            "Is Greater",
+            "Is Less OR Equal",
+            "Is Less",
             "Logical And",
             "Logical Or",
             "Save",
@@ -135,11 +143,11 @@ namespace PSULib.FileClasses.General
             "Swap top two",
             "Roll 3 (up)",
             "Clear stack",
-            "Cast (integer)",
-            "Cast (float)",
-            "Branch",
-            "Branch (false)",
-            "Branch (true)",
+            "Cast (Integer)",
+            "Cast (Float)",
+            "JUMP",
+            "JUMP (FALSE)",
+            "JUMP (TRUE)",
             "",
             "",
             "",
@@ -153,8 +161,8 @@ namespace PSULib.FileClasses.General
             "",
             "",
             "",
-            "Push variable",
-            "Set variable",
+            "Push Variable",
+            "Set Variable",
             "",
             "",
             "",
@@ -166,11 +174,11 @@ namespace PSULib.FileClasses.General
             "Load string array",
             "",
             "",
-            "Set string value",
-            "Get string value",
+            "Set String Value",
+            "Get String Value",
             "Compare/call top subroutine?",
-            "Call subroutine (script)",
-            "Call parsed sub (do not use)",
+            "CALL: Script Routine",
+            "CALL: parsed sub (do not use)",
             "Output stack value",
             "Output all stack types",
             "Output top 8 stack types",
@@ -178,8 +186,8 @@ namespace PSULib.FileClasses.General
             "Enumerate events/syscalls",
             "",
             "",
-            "Open menu (async)",
-            "Open menu (sync)",
+            "Open Menu (async)",
+            "Open Menu (sync)",
             "",
             "",
             "",
@@ -189,8 +197,8 @@ namespace PSULib.FileClasses.General
             "",
             "",
             "",
-            "Call subroutine (system)",
-            "System call"
+            "CALL: System Routine",
+            "System Call"
         };
 
         public List<string> stringNames = new List<string>();
@@ -370,7 +378,7 @@ namespace PSULib.FileClasses.General
         public class Subroutine
         {
             public string SubroutineName { get; set; }
-            public int SubType { get; set; }
+            public SubRoutineTypes SubType { get; set; }
             public int BufferLength { get; set; }
             public List<Operation> Operations { get; set; }
             public Subroutine()
@@ -458,14 +466,15 @@ namespace PSULib.FileClasses.General
                 int nextSubLoc = scriptReader.ReadInt32() + 0xC;
                 string subroutineName = Encoding.UTF8.GetString(scriptReader.ReadBytes(0x20)).TrimEnd('\0');
                 int subLength = scriptReader.ReadInt32();
-                int subType = scriptReader.ReadLittleEndianInt32();
+                SubRoutineTypes subType = (SubRoutineTypes)scriptReader.ReadLittleEndianInt32();
                 int locals = scriptReader.ReadInt32();
                 int currLoc = (int)scriptStream.Position;
                 int subEnd = currLoc + subLength;
                 scriptStream.Seek(subLength, SeekOrigin.Current);
                 int[] localNums = new int[locals];
                 int[] localLocs = new int[locals];
-                if (subType == 0x4C)
+
+                if (subType == SubRoutineTypes.Function)
                 {
                     for (int i = 0; i < locals; i++)
                     {
@@ -473,6 +482,7 @@ namespace PSULib.FileClasses.General
                         localLocs[i] = scriptReader.ReadInt32() * 4;
                     }
                 }
+
                 List<Operation> newOperations = new List<Operation>();
                 List<int> opcodeLocs = new List<int>();
                 HashSet<int> branchDestinations = new HashSet<int>();
@@ -537,7 +547,7 @@ namespace PSULib.FileClasses.General
                 Subroutine tempSub = new Subroutine();
                 tempSub.SubroutineName = subroutineName;
                 tempSub.SubType = subType;
-                if (subType != 0x4C)
+                if (subType != SubRoutineTypes.Function )
                 {
                     tempSub.BufferLength = locals;
                 }
@@ -554,13 +564,13 @@ namespace PSULib.FileClasses.General
         public void Validate()
         {
             var foundErrors = new List<ScriptValidationException.ScriptValidationError>();
-            var subroutineNames = Subroutines.Where(subroutine => subroutine.SubType == 0x4C).Select(subroutine => subroutine.SubroutineName);
-            var numericVariableNames = Subroutines.Where(subroutine => subroutine.SubType == 0x3C).Select(subroutine => subroutine.SubroutineName);
-            var stringVariableNames = Subroutines.Where(subroutine => subroutine.SubType == 0x49).Select(subroutine => subroutine.SubroutineName);
+            var subroutineNames = Subroutines.Where(subroutine => subroutine.SubType == SubRoutineTypes.Function).Select(subroutine => subroutine.SubroutineName);
+            var numericVariableNames = Subroutines.Where(subroutine => subroutine.SubType == SubRoutineTypes.Numeric).Select(subroutine => subroutine.SubroutineName);
+            var stringVariableNames = Subroutines.Where(subroutine => subroutine.SubType == SubRoutineTypes.String).Select(subroutine => subroutine.SubroutineName);
             foreach (var subroutine in Subroutines)
             {
                 var foundLabels = subroutine.Operations.Select(operation => operation.Label).Distinct();
-                if (subroutine.SubType == 0x49 && subroutine.BufferLength <= 0)
+                if (subroutine.SubType == SubRoutineTypes.String && subroutine.BufferLength <= 0)
                 {
                     foundErrors.Add(new ScriptValidationException.ScriptValidationError { FunctionName = subroutine.SubroutineName, LineNumber = -1, Description = "String variable with length less than 1" });
                 }
@@ -686,8 +696,9 @@ namespace PSULib.FileClasses.General
                 int nextSubLoc = (int)rebuildingFile.Position;
                 rebuildingFile.Seek(headerLoc, SeekOrigin.Begin);
                 rebuildingWriter.Write(localVarLoc - headerLoc - 0xC);
-                rebuildingWriter.Write(temp.SubType);
-                if (temp.SubType == 0x4C)
+                rebuildingWriter.Write((int)temp.SubType);
+
+                if (temp.SubType == SubRoutineTypes.Function)
                 {
                     rebuildingWriter.Write(localVariables.Count / 2);
                 }
@@ -695,6 +706,7 @@ namespace PSULib.FileClasses.General
                 {
                     rebuildingWriter.Write(temp.BufferLength);
                 }
+
                 rebuildingFile.Seek(currentStart, SeekOrigin.Begin);
                 if (i + 1 < Subroutines.Count)
                     rebuildingWriter.Write(nextSubLoc - 0xC);
@@ -703,11 +715,13 @@ namespace PSULib.FileClasses.General
                 rebuildingFile.Seek(nextSubLoc, SeekOrigin.Begin);
                 currentStart = nextSubLoc;
             }
+
             int stringListLoc = (int)rebuildingFile.Position;
             for (int i = 0; i < stringNames.Count; i++)
             {
                 rebuildingWriter.Write(Encoding.UTF8.GetBytes(stringNames[i].PadRight(0x20, '\0')));
             }
+
             rebuildingFile.Seek(4, SeekOrigin.Begin);
             rebuildingWriter.Write(stringListLoc - 0xC);
             rebuildingWriter.Write(stringNames.Count * 0x20);
@@ -725,10 +739,12 @@ namespace PSULib.FileClasses.General
             tempScript.filename = "dummy.bin";
             List<string> subsToAdd = new List<string>();
             List<string> addedSubs = new List<string>();
+
             foreach (string currSub in subs)
             {
                 subsToAdd.Add(currSub);
             }
+
             for (int i = 0; i < subsToAdd.Count; i++)
             {
                 if (!addedSubs.Contains(subsToAdd[i]))
