@@ -1256,7 +1256,7 @@ namespace psu_generic_parser
                                 }
                             }
                         }
-                    } catch (Exception exception)
+                    } catch (Exception)
                     {
                         Console.WriteLine("Error reading file");
                         //just ignore
@@ -1346,8 +1346,8 @@ namespace psu_generic_parser
                             }
                         }
                     }
-                    catch (Exception exception)
-                    {
+                    catch (Exception)
+					{
                         Console.WriteLine("Error reading file");
                         //just ignore
                     }

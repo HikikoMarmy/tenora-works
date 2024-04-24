@@ -119,7 +119,7 @@ namespace psu_generic_parser
                                 currentMip = 0;
                                 refreshMip();
                             }
-                            catch (Exception f)
+                            catch (Exception)
                             {
                                 MessageBox.Show("Error reading texture:" + exportTextureDialog.ToString(), "Image Size Error");
                                 //Ignored for now. I need real error checking.
