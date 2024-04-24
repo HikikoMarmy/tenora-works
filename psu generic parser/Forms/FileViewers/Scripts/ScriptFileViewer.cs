@@ -68,7 +68,7 @@ namespace psu_generic_parser
 
 					if( label.Contains( highlightLabel ) && highlightLabel.Length > 1 )
 						row.Cells[0].Style.BackColor = Color.GreenYellow;
-					else if(label.Contains( "label_" ))
+					else if(label.Contains( "branch_" ))
 						row.Cells[0].Style.BackColor = Color.PowderBlue;
 					else
 						row.Cells[0].Style.BackColor = Color.White;
@@ -80,7 +80,7 @@ namespace psu_generic_parser
 
 					if (label.Contains(highlightLabel) && highlightLabel.Length > 1 )
 						row.Cells[2].Style.BackColor = Color.GreenYellow;
-					else if (label.Contains("label_"))
+					else if (label.Contains("branch_"))
 						row.Cells[2].Style.BackColor = Color.PowderBlue;
 					else
 						row.Cells[2].Style.BackColor = Color.White;
@@ -92,6 +92,7 @@ namespace psu_generic_parser
 		{
 			ScriptRoutineLookup.Clear();
 			ScriptVariableLookup.Clear();
+			subroutineListBox.Items.Clear();
 
 			for (int i = 0; i < internalFile.Subroutines.Count; i++)
 			{
@@ -333,20 +334,20 @@ namespace psu_generic_parser
 			}
 		}
 
-		private bool hasDestination(ScriptFile.OpCodeOperandTypes testType, string arg)
+		private bool hasDestination(OpCodeOperandTypes testType, string arg)
 		{
 			switch (testType)
 			{
-				case ScriptFile.OpCodeOperandTypes.FunctionName:
+				case OpCodeOperandTypes.FunctionName:
 					{
 						return subroutineListBox.Items.Contains(arg);
 					} break;
 
-				case ScriptFile.OpCodeOperandTypes.BranchTarget:
+				case OpCodeOperandTypes.BranchTarget:
 					return true;
 
-				case ScriptFile.OpCodeOperandTypes.NumericVariableName:
-				case ScriptFile.OpCodeOperandTypes.StringVariableName:
+				case OpCodeOperandTypes.NumericVariableName:
+				case OpCodeOperandTypes.StringVariableName:
 					{
 						foreach (DataGridViewRow row in dataGridScriptVariables.Rows)
 						{
@@ -361,11 +362,11 @@ namespace psu_generic_parser
 			return false;
 		}
 
-		private bool hasSubroutineDestination(ScriptFile.OpCodeOperandTypes testType)
+		private bool hasSubroutineDestination(OpCodeOperandTypes testType)
 		{
-			return testType == ScriptFile.OpCodeOperandTypes.FunctionName
-				|| testType == ScriptFile.OpCodeOperandTypes.NumericVariableName
-				|| testType == ScriptFile.OpCodeOperandTypes.StringVariableName;
+			return testType == OpCodeOperandTypes.FunctionName
+				|| testType == OpCodeOperandTypes.NumericVariableName
+				|| testType == OpCodeOperandTypes.StringVariableName;
 		}
 
 		public void SelectOperation(string subroutineName, int lineNumber)
@@ -449,7 +450,7 @@ namespace psu_generic_parser
 			ComboBox comboBox = new ComboBox() { Left = 50, Top = 50, Width = 400 };
 			comboBox.Items.AddRange(subroutineListBox.Items.Cast<string>().ToArray());
 			comboBox.Items.Add("End of file");
-			comboBox.SelectedIndex = 0;
+			comboBox.SelectedIndex = subroutineListBox.SelectedIndex;
 
 			NumericUpDown inputBox = new NumericUpDown() { Left = 50, Top = 50, Width = 400 };
 			Button confirmation = new Button() { Text = "OK", Left = 125, Width = 100, Top = 85 };
@@ -462,28 +463,47 @@ namespace psu_generic_parser
 			prompt.Controls.Add(cancel);
 			prompt.ShowDialog();
 
-			if (accept && comboBox.SelectedIndex != -1)
+			if (accept == false || comboBox.SelectedIndex == -1)
 			{
-				ScriptFile.Subroutine sub = new ScriptFile.Subroutine();
-				sub.SubType = SubRoutineTypes.Function;
-				internalFile.Subroutines.Insert(comboBox.SelectedIndex, sub);
-				subroutineListBox.Items.Insert(comboBox.SelectedIndex, internalFile.Subroutines[comboBox.SelectedIndex].SubroutineName);
-
-				buildLookupDictionary();
-
-				forceChange = true;
-				subroutineListBox.SelectedIndex = comboBox.SelectedIndex;
-
+				return;
 			}
+
+			int subRoutineIndex = 0;
+
+			if ( comboBox.SelectedIndex >= subroutineListBox.Items.Count )
+			{
+				subRoutineIndex = internalFile.Subroutines.Count;
+			}
+			else if (subroutineListBox.SelectedIndex < ScriptRoutineLookup.Count)
+			{
+				subRoutineIndex = ScriptRoutineLookup.ElementAt(comboBox.SelectedIndex).Value+1;
+			}
+
+			var sub = new Subroutine
+			{
+				SubType = SubRoutineTypes.Function
+			};
+
+			internalFile.Subroutines.Insert(subRoutineIndex, sub);
+
+			buildLookupDictionary();
+
+			forceChange = true;
+			subroutineListBox.SelectedIndex = comboBox.SelectedIndex;
 		}
 
 		private void ctxMenuSubDelete_Click(object sender, EventArgs e)
 		{
+			if (subroutineListBox.SelectedIndex >= ScriptRoutineLookup.Count)
+			{
+				return;
+			}
+
 			if (MessageBox.Show("Are you sure you want to delete " + internalFile.Subroutines[curSubRoutineIndex].SubroutineName + "?", "Confirmation", MessageBoxButtons.YesNo) == DialogResult.Yes)
 			{
 				int oldIndex = subroutineListBox.SelectedIndex;
-				subroutineListBox.Items.RemoveAt(oldIndex);
-				internalFile.Subroutines.RemoveAt(oldIndex);
+				int subRoutineIndex = ScriptRoutineLookup.ElementAt(subroutineListBox.SelectedIndex).Value;
+				internalFile.Subroutines.RemoveAt(subRoutineIndex);
 
 				buildLookupDictionary();
 
@@ -702,11 +722,11 @@ namespace psu_generic_parser
 			var currentSub = internalFile.Subroutines[curSubRoutineIndex];
 			var currentOp = currentSub.Operations[e.RowIndex];
 
-			if (e.ColumnIndex == 0 && currentOp.Label.Contains("label_"))
+			if (e.ColumnIndex == 0 && currentOp.Label.Contains("branch_"))
 			{
 				highlightLabel = currentOp.Label;
 			}
-			else if( e.ColumnIndex == 2 && currentOp.OperandText.Contains("label_"))
+			else if( e.ColumnIndex == 2 && currentOp.OperandText.Contains("branch_"))
 			{
 				highlightLabel = currentOp.OperandText;
 			}

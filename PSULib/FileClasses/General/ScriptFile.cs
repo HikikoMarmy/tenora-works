@@ -527,7 +527,7 @@ namespace PSULib.FileClasses.General
                         case OpCodeOperandTypes.BranchTarget:
                             int destinationBranch = scriptReader.ReadInt32();
                             int destinationReal = destinationBranch * 4 + currentOpcodeLoc + 8;
-                            newOp.Operand = new StringOperand("label_" + destinationReal);
+                            newOp.Operand = new StringOperand("branch_" + destinationReal);
                             branchDestinations.Add(destinationReal);
                             break;
                         default: break;
@@ -540,7 +540,7 @@ namespace PSULib.FileClasses.General
                 {
                     if (branchDestinations.Contains(opcodeLocs[i]))
                     {
-                        newOperations[i].Label = "label_" + opcodeLocs[i];
+                        newOperations[i].Label = "branch_" + opcodeLocs[i];
                     }
                 }
 
