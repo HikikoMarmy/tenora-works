@@ -571,43 +571,54 @@ namespace psu_generic_parser
 
 		private void ctxMenuOpCopy_Click(object sender, EventArgs e)
 		{
-			if (this.dataGridScriptOpEditor.SelectedRows.Count <= 0)
-				return;
-
-			this.copyIndexStart = this.copyIndexEnd = this.dataGridScriptOpEditor.SelectedRows[0].Index;
-			foreach (DataGridViewBand selectedRow in (BaseCollection)this.dataGridScriptOpEditor.SelectedRows)
+			if (dataGridScriptOpEditor.SelectedRows.Count <= 0)
 			{
-				int index = selectedRow.Index;
-				if (index < this.copyIndexStart)
-					this.copyIndexStart = index;
-				if (index > this.copyIndexEnd)
-					this.copyIndexEnd = index;
+				return;
+			}
+
+			copyIndexStart = copyIndexEnd = dataGridScriptOpEditor.SelectedRows[0].Index;
+
+			foreach (DataGridViewBand selectedRow in (BaseCollection)dataGridScriptOpEditor.SelectedRows)
+			{
+				if (selectedRow.Index < copyIndexStart)
+				{
+					copyIndexStart = selectedRow.Index;
+				}
+
+				if (selectedRow.Index > copyIndexEnd)
+				{
+					copyIndexEnd = selectedRow.Index;
+				}
 			}
 		}
 
 		private void ctxMenuOpPaste_Click(object sender, EventArgs e)
 		{
-			if (this.copyIndexStart == -1 || this.copyIndexEnd == -1 || this.dataGridScriptOpEditor.SelectedRows.Count == 0)
-				return;
-			ScriptFile.Subroutine subroutine = this.internalFile.Subroutines[this.subroutineListBox.SelectedIndex];
-			int index1 = this.dataGridScriptOpEditor.SelectedRows[0].Index;
-			List<ScriptFile.Operation> operationList = new List<ScriptFile.Operation>(subroutine.Operations.Skip<ScriptFile.Operation>(this.copyIndexStart).Take<ScriptFile.Operation>(this.copyIndexEnd + 1 - this.copyIndexStart));
-			for (int index2 = 0; index2 <= this.copyIndexEnd - this.copyIndexStart; ++index2)
+			if (copyIndexStart == -1 || copyIndexEnd == -1 || dataGridScriptOpEditor.SelectedRows.Count == 0)
 			{
-				int copyIndexStart = this.copyIndexStart;
-				ScriptFile.Operation operation1 = operationList[index2];
-				ScriptFile.Operation operation2 = new ScriptFile.Operation()
-				{
-					Label = operation1.Label,
-					OperandText = operation1.OperandText,
-					OpCode = operation1.OpCode
-				};
-				operation2.OperandText = operation1.OperandText;
-				subroutine.Operations.Insert(index1 + index2, operation2);
+				return;
 			}
-			this.binder.ResetBindings(false);
-			this.dataGridScriptOpEditor.Refresh();
-			this.copyIndexStart = this.copyIndexEnd = -1;
+
+			var subroutine = internalFile.Subroutines[curSubRoutineIndex];
+			int lhs = dataGridScriptOpEditor.SelectedRows[0].Index;
+			List<Operation> operationList = new List<Operation>(subroutine.Operations.Skip(copyIndexStart).Take( copyIndexEnd + 1 - copyIndexStart));
+
+			int index = 0;
+			foreach( var target_op in operationList )
+			{
+				var new_op = new Operation();
+
+				new_op.Label = target_op.Label;
+				new_op.Operand = target_op.Operand;
+				new_op.OperandText = target_op.OperandText;
+				new_op.OpCode = target_op.OpCode;
+
+				subroutine.Operations.Insert(lhs + index++, new_op);
+			}
+
+			binder.ResetBindings(false);
+			dataGridScriptOpEditor.Refresh();
+			copyIndexStart = copyIndexEnd = -1;
 		}
 
 		private void peekToolStripMenuItem_Click(object sender, EventArgs e)
