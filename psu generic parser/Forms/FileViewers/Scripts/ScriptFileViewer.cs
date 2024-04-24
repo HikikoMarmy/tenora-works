@@ -14,7 +14,6 @@ namespace psu_generic_parser
 	public partial class ScriptFileViewer : UserControl
 	{
 		readonly ScriptFile internalFile;
-		bool changing = true;
 		private int prevSubIndex = -1;
 		private int curSubRoutineIndex = -1;
 
@@ -101,8 +100,7 @@ namespace psu_generic_parser
 					case SubRoutineTypes.Function:
 						{
 							ScriptRoutineLookup.Add(subroutineListBox.Items.Count, i);
-							subroutineListBox.Items.Add(internalFile.Subroutines[i].SubroutineName);
-						}
+							subroutineListBox.Items.Add(internalFile.Subroutines[i].SubroutineName);						}
 						break;
 
 					case SubRoutineTypes.Numeric:
@@ -130,7 +128,6 @@ namespace psu_generic_parser
 				prevSubIndex = subroutineListBox.SelectedIndex;
 				curSubRoutineIndex = ScriptRoutineLookup.ElementAt(subroutineListBox.SelectedIndex).Value;
 
-				changing = true;
 				{
 					highlightLabel = "";
 					Subroutine currentSub = internalFile.Subroutines[curSubRoutineIndex];
@@ -139,7 +136,6 @@ namespace psu_generic_parser
 					binder.DataSource = currentSub.Operations;
 					dataGridScriptOpEditor.DataSource = binder;
 				}
-				changing = false;
 			}
 
 			buildLabelHighlights();
@@ -436,60 +432,63 @@ namespace psu_generic_parser
 
 		private void ctxMenuSubNewRoutine_Click(object sender, EventArgs e)
 		{
+			Subroutine currentSub = internalFile.Subroutines[curSubRoutineIndex];
+
 			bool accept = false;
 			Form prompt = new Form();
-			prompt.Width = 500;
-			prompt.Height = 150;
+			prompt.Width = 300;
+			prompt.Height = 120;
 			prompt.FormBorderStyle = FormBorderStyle.FixedDialog;
 			prompt.MinimizeBox = false;
 			prompt.MaximizeBox = false;
 			prompt.ShowInTaskbar = false;
-			prompt.Text = "Select location";
-			Label textLabel = new Label() { Left = 50, Top = 20, Text = "Select where to insert subroutine." };
-			textLabel.AutoSize = true;
-			ComboBox comboBox = new ComboBox() { Left = 50, Top = 50, Width = 400 };
-			comboBox.Items.AddRange(subroutineListBox.Items.Cast<string>().ToArray());
-			comboBox.Items.Add("End of file");
-			comboBox.SelectedIndex = subroutineListBox.SelectedIndex;
+			prompt.Text = "Set Name";
 
-			NumericUpDown inputBox = new NumericUpDown() { Left = 50, Top = 50, Width = 400 };
-			Button confirmation = new Button() { Text = "OK", Left = 125, Width = 100, Top = 85 };
-			confirmation.Click += (a, b) => { prompt.Close(); accept = true; };
-			Button cancel = new Button() { Text = "Cancel", Left = 250, Width = 100, Top = 85 };
-			cancel.Click += (a, b) => { prompt.Close(); };
-			prompt.Controls.Add(confirmation);
-			prompt.Controls.Add(textLabel);
-			prompt.Controls.Add(comboBox);
-			prompt.Controls.Add(cancel);
+			Button okBtn = new Button() { Text = "OK", Left = 10, Top = 40, Width = 30 };
+			okBtn.Click += (a, b) => { prompt.Close(); accept = true; };
+
+			Button cancelBtn = new Button() { Text = "Cancel", Left = 50, Top = 40, Width = 50 };
+			cancelBtn.Click += (a, b) => { prompt.Close(); };
+
+			TextBox textBox = new TextBox() { Left = 10, Top = 10, Width = 260, Text = "NewSubRoutine_" + internalFile.Subroutines.Count };
+			textBox.KeyDown += (s, args) => {
+				if (args.KeyCode == Keys.Return)
+				{
+					okBtn.PerformClick();
+				}
+			};
+
+			prompt.Controls.Add(okBtn);
+			prompt.Controls.Add(cancelBtn);
+			prompt.Controls.Add(textBox);
 			prompt.ShowDialog();
 
-			if (accept == false || comboBox.SelectedIndex == -1)
+			if (accept == false)
 			{
 				return;
 			}
 
-			int subRoutineIndex = 0;
+			int tempIndex = subroutineListBox.SelectedIndex;
+			string newRoutineName = textBox.Text;
 
-			if ( comboBox.SelectedIndex >= subroutineListBox.Items.Count )
+			if (subroutineListBox.Items.Contains(newRoutineName))
 			{
-				subRoutineIndex = internalFile.Subroutines.Count;
-			}
-			else if (subroutineListBox.SelectedIndex < ScriptRoutineLookup.Count)
-			{
-				subRoutineIndex = ScriptRoutineLookup.ElementAt(comboBox.SelectedIndex).Value+1;
+				MessageBox.Show("There is already a subroutine with this name!", "Error", MessageBoxButtons.OK);
+				return;
 			}
 
 			var sub = new Subroutine
 			{
-				SubType = SubRoutineTypes.Function
+				SubType = SubRoutineTypes.Function,
+				SubroutineName = newRoutineName,
 			};
 
-			internalFile.Subroutines.Insert(subRoutineIndex, sub);
+			internalFile.Subroutines.Insert(curSubRoutineIndex+1, sub);
 
 			buildLookupDictionary();
 
 			forceChange = true;
-			subroutineListBox.SelectedIndex = comboBox.SelectedIndex;
+			subroutineListBox.SelectedIndex = tempIndex+1;
 		}
 
 		private void ctxMenuSubDelete_Click(object sender, EventArgs e)
