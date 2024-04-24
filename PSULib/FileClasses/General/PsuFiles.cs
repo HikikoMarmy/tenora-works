@@ -14,6 +14,7 @@ using PSULib.FileClasses.Archives;
 using PSULib.FileClasses.Characters;
 using PSULib.FileClasses.Models;
 using PSULib.FileClasses.Maps;
+using System.Collections;
 
 namespace PSULib.FileClasses.General
 {
@@ -206,6 +207,19 @@ namespace PSULib.FileClasses.General
             {
                 return new PointeredFile(filename, rawData, inHeader, ptrs, baseAddr, bigEndian);
             }
+            else if( fileExtension == ".bin" )
+            {
+                string ident = Encoding.UTF8.GetString(rawData, 0, 4);
+				
+                if( ident == "RIPC" )
+                {
+                    return new PalTextureFile(rawData);
+                }
+                else
+                {
+					return new UnpointeredFile(filename, rawData, inHeader);
+				}
+			}
             return new UnpointeredFile(filename, rawData, inHeader);
         }
     }
