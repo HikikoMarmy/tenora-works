@@ -6,7 +6,7 @@ using System.Runtime.InteropServices;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle("Tenora Works Toolkit")]
-[assembly: AssemblyDescription("A set of tools used to modify game files for Phantasy Star Universe and Phantasy Star Portable.")]
+[assembly: AssemblyDescription("A set of tools used to extract and modify game files for Phantasy Star Universe and Phantasy Star Portable.")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
 [assembly: AssemblyProduct("Tenora Works Toolkit")]

@@ -49,9 +49,10 @@ namespace psu_generic_parser
         public MainForm()
         {
             InitializeComponent();
-            Text += System.Reflection.Assembly.GetExecutingAssembly().GetName().Version;
+            this.versionToolStripMenuItem.Text = "Version " + System.Reflection.Assembly.GetExecutingAssembly().GetName().Version;
             setAFSEnabled(false);
 
+            this.DoubleBuffered = true;
 			ResizeBegin += (s, e) => { this.SuspendLayout(); };
 			ResizeEnd += (s, e) => { this.ResumeLayout(true); };
 		}
@@ -60,7 +61,7 @@ namespace psu_generic_parser
         {
             if (fileDialog.ShowDialog() == DialogResult.OK)
             {
-                this.Text = "PSU Generic Parser " + Path.GetFileName(fileDialog.FileName);
+                this.Text = "Tenora Works Toolkit | " + Path.GetFileName(fileDialog.FileName);
                 splitContainer1.Panel2.Controls.Clear();
                 openPSUArchive(fileDialog.FileName, treeView1.Nodes);
             }
@@ -440,6 +441,10 @@ namespace psu_generic_parser
             {
                 toAdd = new LndCommonEditor(lndCommonFile);
             }
+            else if( toRead is PalTextureFile ripcFile )
+            {
+                toAdd = new PaletteTexFileViewer(ripcFile);
+            }
             else if (toRead is UnpointeredFile unpointeredFile)
             {
                 toAdd = new UnpointeredFileViewer(unpointeredFile);
@@ -458,8 +463,7 @@ namespace psu_generic_parser
                 {
                     ((NblLoader)loadedContainer).exportDataBlob(goodOpenFileDialog.FileName);
                 }
-            }
-                
+            }    
         }
 
         private void saveAsToolStripMenuItem_Click(object sender, EventArgs e)
@@ -474,7 +478,7 @@ namespace psu_generic_parser
                     {
                         byte[] savedContainer = loadedContainer.ToRaw();
                         File.WriteAllBytes(saveFileDialog1.FileName, savedContainer);
-                        this.Text = "PSU Generic Parser " + Path.GetFileName(saveFileDialog1.FileName);
+                        this.Text = "Tenora Works Toolkit | " + Path.GetFileName(saveFileDialog1.FileName);
                         fileDialog.FileName = saveFileDialog1.FileName;
                     } catch(ScriptValidationException exc)
                     {
@@ -1872,6 +1876,11 @@ namespace psu_generic_parser
 
 				currentFileHexForm.Show();
 			}
+		}
+
+		private void githubToolStripMenuItem_Click(object sender, EventArgs e)
+		{
+			System.Diagnostics.Process.Start("https://github.com/Agrathejagged/tenora-works");
 		}
 	}
 }
