@@ -74,6 +74,7 @@ namespace psu_generic_parser
 			this.ctxMenuVarFindReference = new System.Windows.Forms.ToolStripMenuItem();
 			this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
 			this.ctxMenuVarDelete = new System.Windows.Forms.ToolStripMenuItem();
+			this.renameToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.subroutineListContextMenuStrip.SuspendLayout();
 			this.operationsContextMenuStrip.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
@@ -122,12 +123,13 @@ namespace psu_generic_parser
 			// 
 			this.subroutineListContextMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.ctxMenuSubNewRoutine,
+            this.renameToolStripMenuItem,
             this.toolStripSeparator3,
             this.ctxMenuSubFindReference,
             this.toolStripSeparator5,
             this.ctxMenuSubDelete});
 			this.subroutineListContextMenuStrip.Name = "subroutineListContextMenuStrip";
-			this.subroutineListContextMenuStrip.Size = new System.Drawing.Size(215, 82);
+			this.subroutineListContextMenuStrip.Size = new System.Drawing.Size(215, 126);
 			// 
 			// ctxMenuSubNewRoutine
 			// 
@@ -501,6 +503,13 @@ namespace psu_generic_parser
 			this.ctxMenuVarDelete.Size = new System.Drawing.Size(174, 22);
 			this.ctxMenuVarDelete.Text = "Delete";
 			// 
+			// renameToolStripMenuItem
+			// 
+			this.renameToolStripMenuItem.Name = "renameToolStripMenuItem";
+			this.renameToolStripMenuItem.Size = new System.Drawing.Size(214, 22);
+			this.renameToolStripMenuItem.Text = "Rename";
+			this.renameToolStripMenuItem.Click += new System.EventHandler(this.renameToolStripMenuItem_Click);
+			// 
 			// ScriptFileViewer
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -575,5 +584,6 @@ namespace psu_generic_parser
 		private ToolStripSeparator toolStripSeparator6;
 		private ToolStripMenuItem peekToolStripMenuItem;
 		private ToolStripMenuItem goToolStripMenuItem;
+		private ToolStripMenuItem renameToolStripMenuItem;
 	}
 }

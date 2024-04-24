@@ -735,5 +735,55 @@ namespace psu_generic_parser
 
 			highlightLabel = "";
 		}
+
+		private void renameToolStripMenuItem_Click(object sender, EventArgs e)
+		{
+			Subroutine currentSub = internalFile.Subroutines[curSubRoutineIndex];
+
+			bool accept = false;
+			Form prompt = new Form();
+			prompt.Width = 300;
+			prompt.Height = 120;
+			prompt.FormBorderStyle = FormBorderStyle.FixedDialog;
+			prompt.MinimizeBox = false;
+			prompt.MaximizeBox = false;
+			prompt.ShowInTaskbar = false;
+			prompt.Text = "Set Name";
+
+			Button okBtn = new Button() { Text = "OK", Left = 10, Top = 40, Width = 30 };
+			okBtn.Click += (a, b) => { prompt.Close(); accept = true; };
+
+			Button cancelBtn = new Button() { Text = "Cancel", Left = 50, Top = 40, Width = 50 };
+			cancelBtn.Click += (a, b) => { prompt.Close(); };
+
+			TextBox textBox = new TextBox() { Left = 10, Top = 10, Width = 260, Text = currentSub.SubroutineName };
+			textBox.KeyDown += (s, args) => {
+				if (args.KeyCode == Keys.Return)
+				{
+					okBtn.PerformClick();
+				}
+			};
+
+			prompt.Controls.Add(okBtn);
+			prompt.Controls.Add(cancelBtn);
+			prompt.Controls.Add(textBox);
+			prompt.ShowDialog();
+
+			if (accept == false )
+			{
+				return;
+			}
+
+			string newRoutineName = textBox.Text;
+
+			if( subroutineListBox.Items.Contains( newRoutineName ) )
+			{
+				MessageBox.Show("There is already a subroutine with this name!", "Error", MessageBoxButtons.OK);
+				return;
+			}
+
+			currentSub.SubroutineName = textBox.Text;
+			subroutineListBox.Items[ subroutineListBox.SelectedIndex ] = textBox.Text;
+		}
 	}
 }
