@@ -100,7 +100,8 @@ namespace psu_generic_parser
 					case SubRoutineTypes.Function:
 						{
 							ScriptRoutineLookup.Add(subroutineListBox.Items.Count, i);
-							subroutineListBox.Items.Add(internalFile.Subroutines[i].SubroutineName);						}
+							subroutineListBox.Items.Add(internalFile.Subroutines[i].SubroutineName);
+						}
 						break;
 
 					case SubRoutineTypes.Numeric:

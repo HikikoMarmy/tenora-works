@@ -37,6 +37,7 @@ namespace psu_generic_parser
 			this.subroutineListBox = new System.Windows.Forms.ListBox();
 			this.subroutineListContextMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
 			this.ctxMenuSubNewRoutine = new System.Windows.Forms.ToolStripMenuItem();
+			this.renameToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
 			this.ctxMenuSubFindReference = new System.Windows.Forms.ToolStripMenuItem();
 			this.toolStripSeparator5 = new System.Windows.Forms.ToolStripSeparator();
@@ -74,7 +75,6 @@ namespace psu_generic_parser
 			this.ctxMenuVarFindReference = new System.Windows.Forms.ToolStripMenuItem();
 			this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
 			this.ctxMenuVarDelete = new System.Windows.Forms.ToolStripMenuItem();
-			this.renameToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.subroutineListContextMenuStrip.SuspendLayout();
 			this.operationsContextMenuStrip.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
@@ -99,7 +99,7 @@ namespace psu_generic_parser
 			// deleteRowMenuItem
 			// 
 			this.deleteRowMenuItem.Name = "deleteRowMenuItem";
-			this.deleteRowMenuItem.Size = new System.Drawing.Size(144, 22);
+			this.deleteRowMenuItem.Size = new System.Drawing.Size(180, 22);
 			this.deleteRowMenuItem.Text = "Delete";
 			this.deleteRowMenuItem.Click += new System.EventHandler(this.deleteRowMenuItem_Click);
 			// 
@@ -129,7 +129,7 @@ namespace psu_generic_parser
             this.toolStripSeparator5,
             this.ctxMenuSubDelete});
 			this.subroutineListContextMenuStrip.Name = "subroutineListContextMenuStrip";
-			this.subroutineListContextMenuStrip.Size = new System.Drawing.Size(215, 126);
+			this.subroutineListContextMenuStrip.Size = new System.Drawing.Size(215, 104);
 			// 
 			// ctxMenuSubNewRoutine
 			// 
@@ -137,6 +137,13 @@ namespace psu_generic_parser
 			this.ctxMenuSubNewRoutine.Size = new System.Drawing.Size(214, 22);
 			this.ctxMenuSubNewRoutine.Text = "New Routine";
 			this.ctxMenuSubNewRoutine.Click += new System.EventHandler(this.ctxMenuSubNewRoutine_Click);
+			// 
+			// renameToolStripMenuItem
+			// 
+			this.renameToolStripMenuItem.Name = "renameToolStripMenuItem";
+			this.renameToolStripMenuItem.Size = new System.Drawing.Size(214, 22);
+			this.renameToolStripMenuItem.Text = "Rename";
+			this.renameToolStripMenuItem.Click += new System.EventHandler(this.renameToolStripMenuItem_Click);
 			// 
 			// toolStripSeparator3
 			// 
@@ -178,13 +185,13 @@ namespace psu_generic_parser
             this.toolStripSeparator6,
             this.deleteRowMenuItem});
 			this.operationsContextMenuStrip.Name = "contextMenuStrip1";
-			this.operationsContextMenuStrip.Size = new System.Drawing.Size(145, 126);
+			this.operationsContextMenuStrip.Size = new System.Drawing.Size(181, 148);
 			this.operationsContextMenuStrip.Opening += new System.ComponentModel.CancelEventHandler(this.operationsContextMenuStrip_Opening);
 			// 
 			// insertRowMenuItem
 			// 
 			this.insertRowMenuItem.Name = "insertRowMenuItem";
-			this.insertRowMenuItem.Size = new System.Drawing.Size(144, 22);
+			this.insertRowMenuItem.Size = new System.Drawing.Size(180, 22);
 			this.insertRowMenuItem.Text = "New";
 			this.insertRowMenuItem.Click += new System.EventHandler(this.insertRowMenuItem_Click);
 			// 
@@ -192,7 +199,7 @@ namespace psu_generic_parser
 			// 
 			this.ctxMenuOpCopy.Name = "ctxMenuOpCopy";
 			this.ctxMenuOpCopy.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.C)));
-			this.ctxMenuOpCopy.Size = new System.Drawing.Size(144, 22);
+			this.ctxMenuOpCopy.Size = new System.Drawing.Size(180, 22);
 			this.ctxMenuOpCopy.Text = "Copy";
 			this.ctxMenuOpCopy.Click += new System.EventHandler(this.ctxMenuOpCopy_Click);
 			// 
@@ -200,14 +207,14 @@ namespace psu_generic_parser
 			// 
 			this.ctxMenuOpPaste.Name = "ctxMenuOpPaste";
 			this.ctxMenuOpPaste.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.V)));
-			this.ctxMenuOpPaste.Size = new System.Drawing.Size(144, 22);
+			this.ctxMenuOpPaste.Size = new System.Drawing.Size(180, 22);
 			this.ctxMenuOpPaste.Text = "Paste";
 			this.ctxMenuOpPaste.Click += new System.EventHandler(this.ctxMenuOpPaste_Click);
 			// 
 			// toolStripSeparator4
 			// 
 			this.toolStripSeparator4.Name = "toolStripSeparator4";
-			this.toolStripSeparator4.Size = new System.Drawing.Size(141, 6);
+			this.toolStripSeparator4.Size = new System.Drawing.Size(177, 6);
 			// 
 			// goToReferenceToolStripMenuItem
 			// 
@@ -215,27 +222,27 @@ namespace psu_generic_parser
             this.goToolStripMenuItem,
             this.peekToolStripMenuItem});
 			this.goToReferenceToolStripMenuItem.Name = "goToReferenceToolStripMenuItem";
-			this.goToReferenceToolStripMenuItem.Size = new System.Drawing.Size(144, 22);
+			this.goToReferenceToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
 			this.goToReferenceToolStripMenuItem.Text = "Reference";
 			// 
 			// goToolStripMenuItem
 			// 
 			this.goToolStripMenuItem.Name = "goToolStripMenuItem";
-			this.goToolStripMenuItem.Size = new System.Drawing.Size(99, 22);
+			this.goToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
 			this.goToolStripMenuItem.Text = "Go";
 			this.goToolStripMenuItem.Click += new System.EventHandler(this.goToolStripMenuItem_Click);
 			// 
 			// peekToolStripMenuItem
 			// 
 			this.peekToolStripMenuItem.Name = "peekToolStripMenuItem";
-			this.peekToolStripMenuItem.Size = new System.Drawing.Size(99, 22);
+			this.peekToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
 			this.peekToolStripMenuItem.Text = "Peek";
 			this.peekToolStripMenuItem.Click += new System.EventHandler(this.peekToolStripMenuItem_Click);
 			// 
 			// toolStripSeparator6
 			// 
 			this.toolStripSeparator6.Name = "toolStripSeparator6";
-			this.toolStripSeparator6.Size = new System.Drawing.Size(141, 6);
+			this.toolStripSeparator6.Size = new System.Drawing.Size(177, 6);
 			// 
 			// splitContainer1
 			// 
@@ -502,13 +509,6 @@ namespace psu_generic_parser
 			this.ctxMenuVarDelete.Name = "ctxMenuVarDelete";
 			this.ctxMenuVarDelete.Size = new System.Drawing.Size(174, 22);
 			this.ctxMenuVarDelete.Text = "Delete";
-			// 
-			// renameToolStripMenuItem
-			// 
-			this.renameToolStripMenuItem.Name = "renameToolStripMenuItem";
-			this.renameToolStripMenuItem.Size = new System.Drawing.Size(214, 22);
-			this.renameToolStripMenuItem.Text = "Rename";
-			this.renameToolStripMenuItem.Click += new System.EventHandler(this.renameToolStripMenuItem_Click);
 			// 
 			// ScriptFileViewer
 			// 
