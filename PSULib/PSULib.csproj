@@ -60,6 +60,7 @@
     <Compile Include="FileClasses\Characters\PartsInfoFile.cs" />
     <Compile Include="FileClasses\Enemies\DamageDataFile.cs" />
     <Compile Include="FileClasses\Enemies\EnemySoundEffectFile.cs" />
+    <Compile Include="FileClasses\Missions\QuestXNRFile.cs" />
     <Compile Include="FileClasses\Textures\PalTextureFile.cs" />
     <Compile Include="Support\PsuCrc32.cs" />
     <Compile Include="Support\StringUtilities.cs" />

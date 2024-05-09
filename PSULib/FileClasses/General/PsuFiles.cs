@@ -205,7 +205,14 @@ namespace PSULib.FileClasses.General
             }
             else if (Regex.IsMatch(subheaderIdentifier, "N[UXSY]IF"))
             {
-                return new PointeredFile(filename, rawData, inHeader, ptrs, baseAddr, bigEndian);
+                if (filename == "quest.xnr")
+                {
+                    return new QuestXNRFile(filename, rawData, inHeader, ptrs, baseAddr);
+				}
+                else
+                {
+                    return new PointeredFile(filename, rawData, inHeader, ptrs, baseAddr, bigEndian);
+                }
             }
             else if( fileExtension == ".bin" )
             {

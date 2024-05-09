@@ -51,6 +51,7 @@
 			this.EnableFlagGroup = new System.Windows.Forms.GroupBox();
 			this.numModel = new System.Windows.Forms.NumericUpDown();
 			this.label5 = new System.Windows.Forms.Label();
+			this.btn_viewInHexEditor = new System.Windows.Forms.Button();
 			this.groupBox1.SuspendLayout();
 			this.groupBox2.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.numAngleAbs)).BeginInit();
@@ -67,6 +68,7 @@
 			// 
 			// groupBox1
 			// 
+			this.groupBox1.Controls.Add(this.btn_viewInHexEditor);
 			this.groupBox1.Controls.Add(this.SetFlagGroup);
 			this.groupBox1.Controls.Add(this.SpawnFlagGroup);
 			this.groupBox1.Controls.Add(this.groupBox2);
@@ -89,9 +91,9 @@
 			// 
 			this.SetFlagGroup.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Right)));
-			this.SetFlagGroup.Location = new System.Drawing.Point(626, 19);
+			this.SetFlagGroup.Location = new System.Drawing.Point(626, 124);
 			this.SetFlagGroup.Name = "SetFlagGroup";
-			this.SetFlagGroup.Size = new System.Drawing.Size(110, 334);
+			this.SetFlagGroup.Size = new System.Drawing.Size(110, 229);
 			this.SetFlagGroup.TabIndex = 25;
 			this.SetFlagGroup.TabStop = false;
 			this.SetFlagGroup.Text = "Set Flag";
@@ -100,9 +102,9 @@
 			// 
 			this.SpawnFlagGroup.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Right)));
-			this.SpawnFlagGroup.Location = new System.Drawing.Point(278, 19);
+			this.SpawnFlagGroup.Location = new System.Drawing.Point(278, 124);
 			this.SpawnFlagGroup.Name = "SpawnFlagGroup";
-			this.SpawnFlagGroup.Size = new System.Drawing.Size(110, 334);
+			this.SpawnFlagGroup.Size = new System.Drawing.Size(110, 229);
 			this.SpawnFlagGroup.TabIndex = 26;
 			this.SpawnFlagGroup.TabStop = false;
 			this.SpawnFlagGroup.Text = "Visible Flag";
@@ -360,9 +362,9 @@
 			// 
 			this.DisabeFlagGroup.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Right)));
-			this.DisabeFlagGroup.Location = new System.Drawing.Point(394, 19);
+			this.DisabeFlagGroup.Location = new System.Drawing.Point(394, 124);
 			this.DisabeFlagGroup.Name = "DisabeFlagGroup";
-			this.DisabeFlagGroup.Size = new System.Drawing.Size(110, 334);
+			this.DisabeFlagGroup.Size = new System.Drawing.Size(110, 229);
 			this.DisabeFlagGroup.TabIndex = 25;
 			this.DisabeFlagGroup.TabStop = false;
 			this.DisabeFlagGroup.Text = "Disable Flag";
@@ -371,9 +373,9 @@
 			// 
 			this.EnableFlagGroup.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Right)));
-			this.EnableFlagGroup.Location = new System.Drawing.Point(510, 19);
+			this.EnableFlagGroup.Location = new System.Drawing.Point(510, 124);
 			this.EnableFlagGroup.Name = "EnableFlagGroup";
-			this.EnableFlagGroup.Size = new System.Drawing.Size(110, 334);
+			this.EnableFlagGroup.Size = new System.Drawing.Size(110, 229);
 			this.EnableFlagGroup.TabIndex = 24;
 			this.EnableFlagGroup.TabStop = false;
 			this.EnableFlagGroup.Text = "Enable Flag";
@@ -400,6 +402,16 @@
 			this.label5.Size = new System.Drawing.Size(50, 13);
 			this.label5.TabIndex = 14;
 			this.label5.Text = "Model ID";
+			// 
+			// btn_viewInHexEditor
+			// 
+			this.btn_viewInHexEditor.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+			this.btn_viewInHexEditor.Location = new System.Drawing.Point(661, 19);
+			this.btn_viewInHexEditor.Name = "btn_viewInHexEditor";
+			this.btn_viewInHexEditor.Size = new System.Drawing.Size(75, 23);
+			this.btn_viewInHexEditor.TabIndex = 30;
+			this.btn_viewInHexEditor.Text = "Hex Editor";
+			this.btn_viewInHexEditor.UseVisualStyleBackColor = true;
 			// 
 			// TObjUnitTransporter
 			// 
@@ -451,5 +463,6 @@
 		private System.Windows.Forms.Label label4;
 		private System.Windows.Forms.GroupBox SpawnFlagGroup;
 		private System.Windows.Forms.GroupBox SetFlagGroup;
+		private System.Windows.Forms.Button btn_viewInHexEditor;
 	}
 }

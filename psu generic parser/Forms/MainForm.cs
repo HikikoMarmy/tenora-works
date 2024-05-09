@@ -445,6 +445,10 @@ namespace psu_generic_parser
             {
                 toAdd = new PaletteTexFileViewer(ripcFile);
             }
+            else if( toRead is QuestXNRFile questFile )
+            {
+                toAdd = new QuestXnrViewer(questFile);
+            }
             else if (toRead is UnpointeredFile unpointeredFile)
             {
                 toAdd = new UnpointeredFileViewer(unpointeredFile);

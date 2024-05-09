@@ -84,6 +84,9 @@
   <PropertyGroup>
     <NoWin32Manifest>true</NoWin32Manifest>
   </PropertyGroup>
+  <PropertyGroup>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="Microsoft.WindowsAPICodePack, Version=1.1.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.WindowsAPICodePack-Core.1.1.0.2\lib\Microsoft.WindowsAPICodePack.dll</HintPath>
@@ -254,6 +257,12 @@
     </Compile>
     <Compile Include="Forms\FileViewers\PaletteTexFileViewer.Designer.cs">
       <DependentUpon>PaletteTexFileViewer.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\FileViewers\QuestXnrViewer.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Forms\FileViewers\QuestXnrViewer.Designer.cs">
+      <DependentUpon>QuestXnrViewer.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\FileViewers\RmagBulletViewer.cs">
       <SubType>UserControl</SubType>
@@ -480,6 +489,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\FileViewers\PaletteTexFileViewer.resx">
       <DependentUpon>PaletteTexFileViewer.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\FileViewers\QuestXnrViewer.resx">
+      <DependentUpon>QuestXnrViewer.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\FileViewers\RmagBulletViewer.resx">
       <DependentUpon>RmagBulletViewer.cs</DependentUpon>

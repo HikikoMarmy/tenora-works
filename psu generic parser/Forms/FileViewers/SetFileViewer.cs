@@ -107,7 +107,7 @@ namespace psu_generic_parser
 
         private void reloadMetadataEditor()
         {
-            UserControl newControl = SetObjectMetadataEditors.getMetadataEditor(objectEntry, false);
+            UserControl newControl = SetObjectMetadataEditors.getMetadataEditor(objectEntry);
             if (metadataGroupBox.Controls.Count == 0 || metadataGroupBox.Controls[0] != newControl)
             {
                 metadataGroupBox.Controls.Clear();

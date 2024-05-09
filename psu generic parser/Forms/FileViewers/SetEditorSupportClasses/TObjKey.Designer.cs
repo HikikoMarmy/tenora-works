@@ -29,18 +29,18 @@
 		private void InitializeComponent()
 		{
 			this.groupBox1 = new System.Windows.Forms.GroupBox();
+			this.checkReqAllFlag = new System.Windows.Forms.CheckBox();
+			this.numKeyIndex = new System.Windows.Forms.NumericUpDown();
+			this.label3 = new System.Windows.Forms.Label();
 			this.KeyUIFlagGroup = new System.Windows.Forms.GroupBox();
 			this.SetFlagGroup = new System.Windows.Forms.GroupBox();
 			this.numKeySet = new System.Windows.Forms.NumericUpDown();
 			this.label2 = new System.Windows.Forms.Label();
 			this.label1 = new System.Windows.Forms.Label();
 			this.comboKeyTemplate = new System.Windows.Forms.ComboBox();
-			this.numKeyIndex = new System.Windows.Forms.NumericUpDown();
-			this.label3 = new System.Windows.Forms.Label();
-			this.checkReqAllFlag = new System.Windows.Forms.CheckBox();
 			this.groupBox1.SuspendLayout();
-			((System.ComponentModel.ISupportInitialize)(this.numKeySet)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.numKeyIndex)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.numKeySet)).BeginInit();
 			this.SuspendLayout();
 			// 
 			// groupBox1
@@ -60,6 +60,40 @@
 			this.groupBox1.TabIndex = 2;
 			this.groupBox1.TabStop = false;
 			this.groupBox1.Text = "Terminal Key Editor";
+			// 
+			// checkReqAllFlag
+			// 
+			this.checkReqAllFlag.AutoSize = true;
+			this.checkReqAllFlag.Location = new System.Drawing.Point(479, 33);
+			this.checkReqAllFlag.Name = "checkReqAllFlag";
+			this.checkReqAllFlag.Size = new System.Drawing.Size(100, 17);
+			this.checkReqAllFlag.TabIndex = 26;
+			this.checkReqAllFlag.Text = "Require All Flag";
+			this.checkReqAllFlag.UseVisualStyleBackColor = true;
+			this.checkReqAllFlag.CheckedChanged += new System.EventHandler(this.checkReqAllFlag_CheckedChanged);
+			// 
+			// numKeyIndex
+			// 
+			this.numKeyIndex.Location = new System.Drawing.Point(82, 93);
+			this.numKeyIndex.Maximum = new decimal(new int[] {
+            255,
+            0,
+            0,
+            0});
+			this.numKeyIndex.Name = "numKeyIndex";
+			this.numKeyIndex.Size = new System.Drawing.Size(53, 20);
+			this.numKeyIndex.TabIndex = 25;
+			this.numKeyIndex.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+			this.numKeyIndex.ValueChanged += new System.EventHandler(this.numKeyIndex_ValueChanged);
+			// 
+			// label3
+			// 
+			this.label3.AutoSize = true;
+			this.label3.Location = new System.Drawing.Point(17, 95);
+			this.label3.Name = "label3";
+			this.label3.Size = new System.Drawing.Size(54, 13);
+			this.label3.TabIndex = 24;
+			this.label3.Text = "Key Index";
 			// 
 			// KeyUIFlagGroup
 			// 
@@ -134,43 +168,9 @@
             "Quad Key (04)"});
 			this.comboKeyTemplate.Location = new System.Drawing.Point(82, 30);
 			this.comboKeyTemplate.Name = "comboKeyTemplate";
-			this.comboKeyTemplate.Size = new System.Drawing.Size(163, 21);
+			this.comboKeyTemplate.Size = new System.Drawing.Size(112, 21);
 			this.comboKeyTemplate.TabIndex = 0;
 			this.comboKeyTemplate.SelectedIndexChanged += new System.EventHandler(this.comboKeyTemplate_SelectedIndexChanged);
-			// 
-			// numKeyIndex
-			// 
-			this.numKeyIndex.Location = new System.Drawing.Point(82, 93);
-			this.numKeyIndex.Maximum = new decimal(new int[] {
-            255,
-            0,
-            0,
-            0});
-			this.numKeyIndex.Name = "numKeyIndex";
-			this.numKeyIndex.Size = new System.Drawing.Size(53, 20);
-			this.numKeyIndex.TabIndex = 25;
-			this.numKeyIndex.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-			this.numKeyIndex.ValueChanged += new System.EventHandler(this.numKeyIndex_ValueChanged);
-			// 
-			// label3
-			// 
-			this.label3.AutoSize = true;
-			this.label3.Location = new System.Drawing.Point(17, 95);
-			this.label3.Name = "label3";
-			this.label3.Size = new System.Drawing.Size(54, 13);
-			this.label3.TabIndex = 24;
-			this.label3.Text = "Key Index";
-			// 
-			// checkReqAllFlag
-			// 
-			this.checkReqAllFlag.AutoSize = true;
-			this.checkReqAllFlag.Location = new System.Drawing.Point(479, 33);
-			this.checkReqAllFlag.Name = "checkReqAllFlag";
-			this.checkReqAllFlag.Size = new System.Drawing.Size(100, 17);
-			this.checkReqAllFlag.TabIndex = 26;
-			this.checkReqAllFlag.Text = "Require All Flag";
-			this.checkReqAllFlag.UseVisualStyleBackColor = true;
-			this.checkReqAllFlag.CheckedChanged += new System.EventHandler(this.checkReqAllFlag_CheckedChanged);
 			// 
 			// TObjKey
 			// 
@@ -181,8 +181,8 @@
 			this.Size = new System.Drawing.Size(656, 361);
 			this.groupBox1.ResumeLayout(false);
 			this.groupBox1.PerformLayout();
-			((System.ComponentModel.ISupportInitialize)(this.numKeySet)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.numKeyIndex)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.numKeySet)).EndInit();
 			this.ResumeLayout(false);
 
 		}

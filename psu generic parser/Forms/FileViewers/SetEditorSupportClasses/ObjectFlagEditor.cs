@@ -31,13 +31,13 @@ namespace psu_generic_parser.Forms.FileViewers.SetEditorSupportClasses
 		private int NumberOfFlag = 0;
 		private List<FlagEntry> FlagSet = new List<FlagEntry>();
 
-		//public event EventHandler onFlagChanged;
 		public ObjectFlagEditor(ref SetFile.ObjectEntry setObject, int flagOffset, int flagCount, string name = "Flag" )
 		{
 			InitializeComponent();
 
-			flagGroupBox.Text = name;
+			Anchor = AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
 
+			//nameLabel.Text = name;
 			ParentObject = setObject;
 			FlagOffset = flagOffset;
 			NumberOfFlag = flagCount;

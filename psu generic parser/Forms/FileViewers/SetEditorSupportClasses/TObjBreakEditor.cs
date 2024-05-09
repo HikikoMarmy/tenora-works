@@ -21,9 +21,9 @@ namespace psu_generic_parser.Forms.FileViewers.SetEditorSupportClasses
 
 			ParentObject = obj;
 
-			ReqFlagGroup.Controls.Add(new ObjectFlagEditor(ref obj, 0x10, 8, "Req Flag"));
-			SetFlagGroup.Controls.Add(new ObjectFlagEditor(ref obj, 0x20, 8, "Set Flag"));
-			DisableFlagGroup.Controls.Add(new ObjectFlagEditor(ref obj, 0x30, 8, "Disable Flag"));
+			ReqFlagGroup.Controls.Add(new ObjectFlagEditor(ref obj, 0x10, 8));
+			SetFlagGroup.Controls.Add(new ObjectFlagEditor(ref obj, 0x20, 8));
+			DisableFlagGroup.Controls.Add(new ObjectFlagEditor(ref obj, 0x30, 8));
 
 			numModel.Value = obj.metadata[0];
 			numModelTier.Value = obj.metadata[1];

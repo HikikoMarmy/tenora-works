@@ -29,6 +29,7 @@ namespace psu_generic_parser.Forms.FileViewers.SetEditorSupportClasses
 			"Quad Key (03)",
 			"Quad Key (04)"
 		};
+
 		SetFile.ObjectEntry ParentObject = null;
 
 		public TObjSwitchTerminal(SetFile.ObjectEntry obj)
@@ -42,10 +43,15 @@ namespace psu_generic_parser.Forms.FileViewers.SetEditorSupportClasses
 
 			numModel.Value = obj.metadata[0];
 			numModelTier.Value = obj.metadata[1];
-			comboKeyTemplate.SelectedText = keyTemplateNames.ElementAt(obj.metadata[2]);
+			comboKeyTemplate.SelectedIndex = obj.metadata[2];
 
 			numKeySet.Value = BitConverter.ToInt16(obj.metadata, 6);
 			numActivationRange.Value = (decimal)BitConverter.ToSingle(obj.metadata, 8);
+		}
+
+		void tabControl1_Selecting(object sender, TabControlCancelEventArgs e)
+		{
+
 		}
 
 		private void numModel_ValueChanged(object sender, EventArgs e)

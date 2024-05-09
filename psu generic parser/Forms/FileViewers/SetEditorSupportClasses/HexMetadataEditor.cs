@@ -1,11 +1,9 @@
 ﻿using System;
 using System.IO;
-//using System.Threading;
 using System.Windows;
 using System.Windows.Forms;
 using PSULib.FileClasses.Missions;
 using PSULib.FileClasses.Missions.Sets;
-using static Microsoft.WindowsAPICodePack.Shell.PropertySystem.SystemProperties.System;
 
 namespace psu_generic_parser.Forms.FileViewers.SetEditorSupportClasses
 {
@@ -17,6 +15,7 @@ namespace psu_generic_parser.Forms.FileViewers.SetEditorSupportClasses
 		public HexMetadataEditor(SetFile.ObjectEntry obj = null)
 		{
 			InitializeComponent();
+
 			metadataHexEditor.StringDataVisibility = Visibility.Hidden;
 			metadataHexEditor.BytesModified += metadataHexEditor_BytesModified;
 			metadataHexEditor.SelectionStartChanged += metadataHexEditor_SelectionStart;
@@ -54,13 +53,13 @@ namespace psu_generic_parser.Forms.FileViewers.SetEditorSupportClasses
 				return;
 			}
 
-			InspectorView.Rows[0].Cells[1].Value = Convert.ToSByte((sbyte)metadataStream.GetBuffer()[SelectedPosition]);
-			InspectorView.Rows[1].Cells[1].Value = Convert.ToByte((byte)metadataStream.GetBuffer()[SelectedPosition]);
+			InspectorView.Rows[0].Cells[1].Value = Convert.ToSByte((sbyte)objectEntry.metadata[SelectedPosition]);
+			InspectorView.Rows[1].Cells[1].Value = Convert.ToByte((byte)objectEntry.metadata[SelectedPosition]);
 
 			if (SelectedPosition + 1 < metadataStream.Length)
 			{
 				byte[] temp_buffer = new byte[2];
-				Array.Copy(metadataStream.GetBuffer(), SelectedPosition, temp_buffer, 0, 2);
+				Array.Copy(objectEntry.metadata, SelectedPosition, temp_buffer, 0, 2);
 				InspectorView.Rows[2].Cells[1].Value = BitConverter.ToInt16(temp_buffer, 0);
 				InspectorView.Rows[3].Cells[1].Value = BitConverter.ToUInt16(temp_buffer, 0);
 			}
@@ -73,7 +72,7 @@ namespace psu_generic_parser.Forms.FileViewers.SetEditorSupportClasses
 			if (SelectedPosition + 3 < metadataStream.Length)
 			{
 				byte[] temp_buffer = new byte[4];
-				Array.Copy(metadataStream.GetBuffer(), SelectedPosition, temp_buffer, 0, 4);
+				Array.Copy(objectEntry.metadata, SelectedPosition, temp_buffer, 0, 4);
 				InspectorView.Rows[4].Cells[1].Value = BitConverter.ToInt32(temp_buffer, 0);
 				InspectorView.Rows[5].Cells[1].Value = BitConverter.ToUInt32(temp_buffer, 0);
 				InspectorView.Rows[6].Cells[1].Value = BitConverter.ToSingle(temp_buffer, 0);
@@ -132,10 +131,33 @@ namespace psu_generic_parser.Forms.FileViewers.SetEditorSupportClasses
 		{
 			objectEntry = obj;
 			ReloadData();
+
+			UserControl Ctl;
+			switch (obj.objectType)
+			{
+				case 12: Ctl = new TObjBreakEditor(obj); break;
+				case 14: Ctl = new TObjUnitTransporter(obj); break;
+				case 22: Ctl = new TObjSwitchTerminal(obj); break;
+				case 31: Ctl = new TObjKey(obj); break;
+				default:
+					{
+						return;
+					}
+					break;
+			}
+
+			Ctl.Dock = DockStyle.Fill;
+			tabControl.TabPages[ 0 ].Controls.Clear();
+			tabControl.TabPages[ 0 ].Controls.Add(Ctl);
 		}
 
-		private void ReloadData()
+		public void ReloadData()
 		{
+			if (objectEntry == null)
+			{
+				return;
+			}
+
 			if (SetObjectDefinitions.definitions.ContainsKey(objectEntry.objectType))
 			{
 				SetObjectDefinition def = SetObjectDefinitions.definitions[objectEntry.objectType];
@@ -145,6 +167,7 @@ namespace psu_generic_parser.Forms.FileViewers.SetEditorSupportClasses
 			{
 				metadataLengthLabel.Text = "INVALID OBJECT";
 			}
+
 			metadataLengthUD.Value = objectEntry.metadata.Length;
 			metadataStream.SetLength(objectEntry.metadata.Length);
 			metadataStream.Seek(0, SeekOrigin.Begin);
