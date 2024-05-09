@@ -31,6 +31,7 @@ namespace psu_generic_parser
 		public ScriptFileViewer(ScriptFile toImport)
 		{
 			InitializeComponent();
+			this.DoubleBuffered = true;
 
 			internalFile = toImport;
 
@@ -67,8 +68,8 @@ namespace psu_generic_parser
 
 					if( label.Contains( highlightLabel ) && highlightLabel.Length > 1 )
 						row.Cells[0].Style.BackColor = Color.GreenYellow;
-					else if(label.Contains( "branch_" ))
-						row.Cells[0].Style.BackColor = Color.PowderBlue;
+					else if( label.Contains( "branch_" ) )
+						row.Cells[ 0 ].Style.BackColor = Color.FloralWhite;
 					else
 						row.Cells[0].Style.BackColor = Color.White;
 				}
@@ -79,8 +80,8 @@ namespace psu_generic_parser
 
 					if (label.Contains(highlightLabel) && highlightLabel.Length > 1 )
 						row.Cells[2].Style.BackColor = Color.GreenYellow;
-					else if (label.Contains("branch_"))
-						row.Cells[2].Style.BackColor = Color.PowderBlue;
+					else if( label.Contains( "branch_" ) )
+						row.Cells[ 2 ].Style.BackColor = Color.FloralWhite;
 					else
 						row.Cells[2].Style.BackColor = Color.White;
 				}
@@ -336,25 +337,26 @@ namespace psu_generic_parser
 			switch (testType)
 			{
 				case OpCodeOperandTypes.FunctionName:
-					{
-						return subroutineListBox.Items.Contains(arg);
-					} break;
+				case OpCodeOperandTypes.StoredString:   // Some Script Routines are called as System Routines.
+				{
+					return subroutineListBox.Items.Contains(arg);
+				} break;
 
 				case OpCodeOperandTypes.BranchTarget:
 					return true;
 
 				case OpCodeOperandTypes.NumericVariableName:
 				case OpCodeOperandTypes.StringVariableName:
+				{
+					foreach (DataGridViewRow row in dataGridScriptVariables.Rows)
 					{
-						foreach (DataGridViewRow row in dataGridScriptVariables.Rows)
+						if (row.Cells[1].Value == null) continue;
+						if (row.Cells[1].Value.ToString().Equals(arg))
 						{
-							if (row.Cells[1].Value == null) continue;
-							if (row.Cells[1].Value.ToString().Equals(arg))
-							{
-								return true;
-							}
+							return true;
 						}
-					} break;
+					}
+				} break;
 			}
 			return false;
 		}
@@ -687,6 +689,7 @@ namespace psu_generic_parser
 					break;
 
 				case OpCodeOperandTypes.FunctionName:
+				case OpCodeOperandTypes.StoredString:	// Some Script Routines are called as System Routines.
 					{
 						int selectedIndex = subroutineListBox.Items.IndexOf(currentOp.OperandText);
 						if (selectedIndex == -1)
