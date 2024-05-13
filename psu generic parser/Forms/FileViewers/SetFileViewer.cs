@@ -501,16 +501,20 @@ namespace psu_generic_parser
 				newObjList.RemoveAt(setObjectListBox.SelectedIndex);
 				internalFile.mapData[mapListCB.SelectedIndex].headers[objectListBox.SelectedIndex].objects = newObjList.ToArray();
 
+				if( setObjectListBox.SelectedIndex > setObjectListBox.Items.Count )
+				{
+					return;
+				}
+
+                int deleteIndex = setObjectListBox.SelectedIndex;
+
+                if( setObjectListBox.SelectedIndex == setObjectListBox.Items.Count )
+                {
+                    setObjectListBox.SelectedIndex = setObjectListBox.SelectedIndex - 1;
+				}
+
 				setObjectListBox.BeginUpdate();
-				if (setObjectListBox.SelectedIndex > 0)
-				{
-					setObjectListBox.SelectedIndex = setObjectListBox.SelectedIndex - 1;
-				}
-				else
-				{
-					setObjectListBox.SelectedIndex = 0;
-				}
-				setObjectListBox.Items.RemoveAt(setObjectListBox.Items.Count - 1);
+                setObjectListBox.Items.RemoveAt( deleteIndex );
 				setObjectListBox.EndUpdate();
 
 			}
