@@ -32,7 +32,7 @@ namespace psu_generic_parser
         private void InitializeComponent()
         {
 			this.components = new System.ComponentModel.Container();
-			System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+			System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
 			this.deleteRowMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.subroutineListBox = new System.Windows.Forms.ListBox();
 			this.subroutineListContextMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
@@ -64,9 +64,6 @@ namespace psu_generic_parser
 			this.btn_ExportSubRoutine = new System.Windows.Forms.Button();
 			this.btn_ImportSubRoutine = new System.Windows.Forms.Button();
 			this.dataGridScriptVariables = new System.Windows.Forms.DataGridView();
-			this.VariableType = new System.Windows.Forms.DataGridViewComboBoxColumn();
-			this.VariableName = new System.Windows.Forms.DataGridViewTextBoxColumn();
-			this.VariableLength = new System.Windows.Forms.DataGridViewTextBoxColumn();
 			this.subroutineSearchBox = new System.Windows.Forms.TextBox();
 			this.variableListBoxContextMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
 			this.ctxMenuVarNewInt = new System.Windows.Forms.ToolStripMenuItem();
@@ -75,6 +72,9 @@ namespace psu_generic_parser
 			this.ctxMenuVarFindReference = new System.Windows.Forms.ToolStripMenuItem();
 			this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
 			this.ctxMenuVarDelete = new System.Windows.Forms.ToolStripMenuItem();
+			this.VariableType = new System.Windows.Forms.DataGridViewComboBoxColumn();
+			this.VariableName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			this.VariableLength = new System.Windows.Forms.DataGridViewTextBoxColumn();
 			this.subroutineListContextMenuStrip.SuspendLayout();
 			this.operationsContextMenuStrip.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
@@ -114,7 +114,7 @@ namespace psu_generic_parser
 			this.subroutineListBox.FormattingEnabled = true;
 			this.subroutineListBox.Location = new System.Drawing.Point(6, 32);
 			this.subroutineListBox.Name = "subroutineListBox";
-			this.subroutineListBox.Size = new System.Drawing.Size(400, 312);
+			this.subroutineListBox.Size = new System.Drawing.Size(397, 325);
 			this.subroutineListBox.TabIndex = 8;
 			this.subroutineListBox.DrawItem += new System.Windows.Forms.DrawItemEventHandler(this.subroutineListBox_DrawItem);
 			this.subroutineListBox.SelectedIndexChanged += new System.EventHandler(this.subroutineListBox_SelectedIndexChanged);
@@ -284,14 +284,14 @@ namespace psu_generic_parser
 			this.dataGridScriptOpEditor.BackgroundColor = System.Drawing.SystemColors.WindowFrame;
 			this.dataGridScriptOpEditor.BorderStyle = System.Windows.Forms.BorderStyle.None;
 			this.dataGridScriptOpEditor.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Single;
-			dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-			dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
-			dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
-			dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-			dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-			dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-			this.dataGridScriptOpEditor.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+			dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+			dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Control;
+			dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.WindowText;
+			dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+			dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+			dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+			this.dataGridScriptOpEditor.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
 			this.dataGridScriptOpEditor.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
 			this.dataGridScriptOpEditor.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.LabelColumn,
@@ -371,7 +371,7 @@ namespace psu_generic_parser
 			// 
 			this.splitContainer3.Panel2.Controls.Add(this.dataGridScriptVariables);
 			this.splitContainer3.Size = new System.Drawing.Size(409, 699);
-			this.splitContainer3.SplitterDistance = 357;
+			this.splitContainer3.SplitterDistance = 366;
 			this.splitContainer3.TabIndex = 10;
 			// 
 			// splitContainer2
@@ -432,29 +432,6 @@ namespace psu_generic_parser
 			this.dataGridScriptVariables.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridScriptVariables_CellEndEdit);
 			this.dataGridScriptVariables.UserDeletingRow += new System.Windows.Forms.DataGridViewRowCancelEventHandler(this.dataGridScriptVariables_DeleteRow);
 			// 
-			// VariableType
-			// 
-			this.VariableType.Frozen = true;
-			this.VariableType.HeaderText = "Type";
-			this.VariableType.Items.AddRange(new object[] {
-            "Numeric",
-            "String"});
-			this.VariableType.Name = "VariableType";
-			this.VariableType.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-			this.VariableType.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
-			// 
-			// VariableName
-			// 
-			this.VariableName.Frozen = true;
-			this.VariableName.HeaderText = "Name";
-			this.VariableName.Name = "VariableName";
-			// 
-			// VariableLength
-			// 
-			this.VariableLength.Frozen = true;
-			this.VariableLength.HeaderText = "Length";
-			this.VariableLength.Name = "VariableLength";
-			// 
 			// subroutineSearchBox
 			// 
 			this.subroutineSearchBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
@@ -510,6 +487,30 @@ namespace psu_generic_parser
 			this.ctxMenuVarDelete.Name = "ctxMenuVarDelete";
 			this.ctxMenuVarDelete.Size = new System.Drawing.Size(174, 22);
 			this.ctxMenuVarDelete.Text = "Delete";
+			// 
+			// VariableType
+			// 
+			this.VariableType.Frozen = true;
+			this.VariableType.HeaderText = "Type";
+			this.VariableType.Items.AddRange(new object[] {
+            "Numeric",
+            "String"});
+			this.VariableType.Name = "VariableType";
+			this.VariableType.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+			// 
+			// VariableName
+			// 
+			this.VariableName.Frozen = true;
+			this.VariableName.HeaderText = "Name";
+			this.VariableName.Name = "VariableName";
+			this.VariableName.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+			// 
+			// VariableLength
+			// 
+			this.VariableLength.Frozen = true;
+			this.VariableLength.HeaderText = "Length";
+			this.VariableLength.Name = "VariableLength";
+			this.VariableLength.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
 			// 
 			// ScriptFileViewer
 			// 
@@ -575,9 +576,6 @@ namespace psu_generic_parser
 		private System.Windows.Forms.ToolStripSeparator toolStripSeparator3;
 		private System.Windows.Forms.ToolStripMenuItem ctxMenuSubDelete;
 		private System.Windows.Forms.DataGridView dataGridScriptVariables;
-		private System.Windows.Forms.DataGridViewComboBoxColumn VariableType;
-		private System.Windows.Forms.DataGridViewTextBoxColumn VariableName;
-		private System.Windows.Forms.DataGridViewTextBoxColumn VariableLength;
 		private ToolStripSeparator toolStripSeparator5;
 		private ToolStripMenuItem ctxMenuOpCopy;
 		private ToolStripMenuItem ctxMenuOpPaste;
@@ -586,5 +584,8 @@ namespace psu_generic_parser
 		private ToolStripMenuItem peekToolStripMenuItem;
 		private ToolStripMenuItem goToolStripMenuItem;
 		private ToolStripMenuItem renameToolStripMenuItem;
+		private DataGridViewComboBoxColumn VariableType;
+		private DataGridViewTextBoxColumn VariableName;
+		private DataGridViewTextBoxColumn VariableLength;
 	}
 }

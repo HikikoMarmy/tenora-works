@@ -110,7 +110,7 @@ namespace PSULib.FileClasses.General
             else
                 outWriter.Write(Encoding.ASCII.GetBytes(filename.ToUpper().ToCharArray(filename.Length - 3, 3)));
             outWriter.Seek(0x4, SeekOrigin.Begin);
-            outWriter.Write(0x60);
+            outWriter.Write((int)0x60);
             outStream.Seek(0x10, SeekOrigin.Begin);
             outWriter.Write(StringUtilities.encodePaddedSjisString(filename, 0x20));
             outWriter.Write(0);

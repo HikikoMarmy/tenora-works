@@ -54,6 +54,12 @@ namespace psu_generic_parser
 			this.mapListNumberLabel = new System.Windows.Forms.Label();
 			this.mapListNumberUD = new System.Windows.Forms.NumericUpDown();
 			this.objectListBox = new System.Windows.Forms.ListBox();
+			this.ctxMenuObjectList = new System.Windows.Forms.ContextMenuStrip(this.components);
+			this.ctxMenuObjectList_New = new System.Windows.Forms.ToolStripMenuItem();
+			this.ctxMenuObjectList_Delete = new System.Windows.Forms.ToolStripMenuItem();
+			this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
+			this.importListToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.exportListToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.objectListTabControl = new System.Windows.Forms.TabControl();
 			this.listObjectsTab = new System.Windows.Forms.TabPage();
 			this.setObjectListBox = new System.Windows.Forms.ListBox();
@@ -98,9 +104,6 @@ namespace psu_generic_parser
 			this.splitContainer1 = new System.Windows.Forms.SplitContainer();
 			this.setObjectTypeComboBox = new System.Windows.Forms.ComboBox();
 			this.areaIdComboBox = new System.Windows.Forms.ComboBox();
-			this.ctxMenuObjectList = new System.Windows.Forms.ContextMenuStrip(this.components);
-			this.ctxMenuObjectList_New = new System.Windows.Forms.ToolStripMenuItem();
-			this.ctxMenuObjectList_Delete = new System.Windows.Forms.ToolStripMenuItem();
 			this.positionGroupBox.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.posZUD)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.posYUD)).BeginInit();
@@ -111,6 +114,7 @@ namespace psu_generic_parser
 			((System.ComponentModel.ISupportInitialize)(this.rotXUD)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.unkIntUD)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.mapListNumberUD)).BeginInit();
+			this.ctxMenuObjectList.SuspendLayout();
 			this.objectListTabControl.SuspendLayout();
 			this.listObjectsTab.SuspendLayout();
 			this.ctxMenuSetObject.SuspendLayout();
@@ -135,7 +139,6 @@ namespace psu_generic_parser
 			this.splitContainer1.Panel1.SuspendLayout();
 			this.splitContainer1.Panel2.SuspendLayout();
 			this.splitContainer1.SuspendLayout();
-			this.ctxMenuObjectList.SuspendLayout();
 			this.SuspendLayout();
 			// 
 			// ExportJSONButton
@@ -438,6 +441,49 @@ namespace psu_generic_parser
 			this.objectListBox.TabIndex = 31;
 			this.objectListBox.SelectedIndexChanged += new System.EventHandler(this.objectListBox_SelectedIndexChanged);
 			this.objectListBox.MouseDown += new System.Windows.Forms.MouseEventHandler(this.objectListBox_MouseDown);
+			// 
+			// ctxMenuObjectList
+			// 
+			this.ctxMenuObjectList.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.ctxMenuObjectList_New,
+            this.ctxMenuObjectList_Delete,
+            this.toolStripSeparator3,
+            this.importListToolStripMenuItem,
+            this.exportListToolStripMenuItem});
+			this.ctxMenuObjectList.Name = "ctxMenuObject";
+			this.ctxMenuObjectList.Size = new System.Drawing.Size(153, 98);
+			// 
+			// ctxMenuObjectList_New
+			// 
+			this.ctxMenuObjectList_New.Name = "ctxMenuObjectList_New";
+			this.ctxMenuObjectList_New.Size = new System.Drawing.Size(152, 22);
+			this.ctxMenuObjectList_New.Text = "New List";
+			this.ctxMenuObjectList_New.Click += new System.EventHandler(this.ctxMenuObjectList_New_Click);
+			// 
+			// ctxMenuObjectList_Delete
+			// 
+			this.ctxMenuObjectList_Delete.Name = "ctxMenuObjectList_Delete";
+			this.ctxMenuObjectList_Delete.ShortcutKeys = System.Windows.Forms.Keys.Delete;
+			this.ctxMenuObjectList_Delete.Size = new System.Drawing.Size(152, 22);
+			this.ctxMenuObjectList_Delete.Text = "Delete List";
+			this.ctxMenuObjectList_Delete.Click += new System.EventHandler(this.ctxMenuObjectList_Delete_Click);
+			// 
+			// toolStripSeparator3
+			// 
+			this.toolStripSeparator3.Name = "toolStripSeparator3";
+			this.toolStripSeparator3.Size = new System.Drawing.Size(149, 6);
+			// 
+			// importListToolStripMenuItem
+			// 
+			this.importListToolStripMenuItem.Name = "importListToolStripMenuItem";
+			this.importListToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+			this.importListToolStripMenuItem.Text = "Import List";
+			// 
+			// exportListToolStripMenuItem
+			// 
+			this.exportListToolStripMenuItem.Name = "exportListToolStripMenuItem";
+			this.exportListToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+			this.exportListToolStripMenuItem.Text = "Export List";
 			// 
 			// objectListTabControl
 			// 
@@ -1118,29 +1164,6 @@ namespace psu_generic_parser
 			this.areaIdComboBox.TabIndex = 32;
 			this.areaIdComboBox.SelectedIndexChanged += new System.EventHandler(this.areaIdComboBox_SelectedIndexChanged);
 			// 
-			// ctxMenuObjectList
-			// 
-			this.ctxMenuObjectList.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.ctxMenuObjectList_New,
-            this.ctxMenuObjectList_Delete});
-			this.ctxMenuObjectList.Name = "ctxMenuObject";
-			this.ctxMenuObjectList.Size = new System.Drawing.Size(153, 48);
-			// 
-			// ctxMenuObjectList_New
-			// 
-			this.ctxMenuObjectList_New.Name = "ctxMenuObjectList_New";
-			this.ctxMenuObjectList_New.Size = new System.Drawing.Size(180, 22);
-			this.ctxMenuObjectList_New.Text = "New List";
-			this.ctxMenuObjectList_New.Click += new System.EventHandler(this.ctxMenuObjectList_New_Click);
-			// 
-			// ctxMenuObjectList_Delete
-			// 
-			this.ctxMenuObjectList_Delete.Name = "ctxMenuObjectList_Delete";
-			this.ctxMenuObjectList_Delete.ShortcutKeys = System.Windows.Forms.Keys.Delete;
-			this.ctxMenuObjectList_Delete.Size = new System.Drawing.Size(180, 22);
-			this.ctxMenuObjectList_Delete.Text = "Delete List";
-			this.ctxMenuObjectList_Delete.Click += new System.EventHandler(this.ctxMenuObjectList_Delete_Click);
-			// 
 			// SetFileViewer
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1157,6 +1180,7 @@ namespace psu_generic_parser
 			this.Controls.Add(this.areaLabel);
 			this.Name = "SetFileViewer";
 			this.Size = new System.Drawing.Size(1097, 653);
+			this.Load += new System.EventHandler(this.SetFileViewer_Load);
 			this.positionGroupBox.ResumeLayout(false);
 			((System.ComponentModel.ISupportInitialize)(this.posZUD)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.posYUD)).EndInit();
@@ -1167,6 +1191,7 @@ namespace psu_generic_parser
 			((System.ComponentModel.ISupportInitialize)(this.rotXUD)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.unkIntUD)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.mapListNumberUD)).EndInit();
+			this.ctxMenuObjectList.ResumeLayout(false);
 			this.objectListTabControl.ResumeLayout(false);
 			this.listObjectsTab.ResumeLayout(false);
 			this.ctxMenuSetObject.ResumeLayout(false);
@@ -1193,7 +1218,6 @@ namespace psu_generic_parser
 			this.splitContainer1.Panel2.ResumeLayout(false);
 			((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
 			this.splitContainer1.ResumeLayout(false);
-			this.ctxMenuObjectList.ResumeLayout(false);
 			this.ResumeLayout(false);
 			this.PerformLayout();
 
@@ -1271,5 +1295,8 @@ namespace psu_generic_parser
 		private System.Windows.Forms.ContextMenuStrip ctxMenuObjectList;
 		private System.Windows.Forms.ToolStripMenuItem ctxMenuObjectList_New;
 		private System.Windows.Forms.ToolStripMenuItem ctxMenuObjectList_Delete;
+		private System.Windows.Forms.ToolStripMenuItem exportListToolStripMenuItem;
+		private System.Windows.Forms.ToolStripMenuItem importListToolStripMenuItem;
+		private System.Windows.Forms.ToolStripSeparator toolStripSeparator3;
 	}
 }

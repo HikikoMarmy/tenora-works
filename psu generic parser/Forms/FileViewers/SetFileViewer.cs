@@ -572,5 +572,10 @@ namespace psu_generic_parser
 				MessageBox.Show("You cannot remove the last Object List!");
 			}
 		}
+
+		private void SetFileViewer_Load( object sender, EventArgs e )
+		{
+
+		}
 	}
 }

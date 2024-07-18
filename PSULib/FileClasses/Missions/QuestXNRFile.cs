@@ -867,8 +867,8 @@ namespace PSULib.FileClasses.Missions
 
 					//writer.Write( zone.enemy_stat_modifier.monster_type );
 
-					b = new byte[ 32 ];
-					mission_flags.CopyTo( b, 0 );
+					b = new byte[ 4 ];
+					zone.enemy_stat_modifier.monster_type.CopyTo( b, 0 );
 					writer.Write( b );
 
 					for( int j = 0; j < 12; j++ )
@@ -887,8 +887,8 @@ namespace PSULib.FileClasses.Missions
 					zone.ptr_boss_stat_modifier = (int)stream.Position;
 					//writer.Write( zone.boss_stat_modifier.monster_type );
 
-					b = new byte[ 32 ];
-					mission_flags.CopyTo( b, 0 );
+					b = new byte[ 4 ];
+					zone.boss_stat_modifier.monster_type.CopyTo( b, 0 );
 					writer.Write( b );
 
 					for( int j = 0; j < 12; j++ )
@@ -1114,9 +1114,9 @@ namespace PSULib.FileClasses.Missions
 			writer.Write( ptr_main_table );
 
 			calculatedPointers = calculated_ptr_list.ToArray();
+			return stream.ToArray();
 
 			//return backupRaw;
-			return stream.ToArray();
 		}
 	}
 
