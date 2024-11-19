@@ -337,6 +337,8 @@ namespace psu_generic_parser.Forms.FileViewers
 			numZoneId.Value = currentZone.zone_number;
 			comboZoneArea.SelectedIndex = currentZone.area_code;
 
+			numMonsterLevel.Value = currentZone.monster_level;
+
 			dataGridViewEnemyStatModifier.Rows.Clear();
 			dataGridViewBossStatModifier.Rows.Clear();
 
@@ -463,7 +465,15 @@ namespace psu_generic_parser.Forms.FileViewers
 
 			QuestXNRFile.ZoneEntry new_zone = new QuestXNRFile.ZoneEntry();
 			new_zone.zone_number = new_zone_id;
+			new_zone.area_code = 0;
+			new_zone.area_code_other = 0;
+			new_zone.monster_level = 1;
+			new_zone.unk_b = 0xFF;
+			new_zone.unk_c = 0x00000104;
+			new_zone.nb_map = 0;
 			new_zone.set_probability.Add( 100 );
+			
+
 
 			xnr.ZoneData.Add( new_zone_id, new_zone );
 
@@ -928,6 +938,18 @@ namespace psu_generic_parser.Forms.FileViewers
 				default:
 				return;
 			}
+		}
+
+		private void numMonsterLevel_ValueChanged( object sender, EventArgs e )
+		{
+			if( updating || null == currentZone )
+			{
+				return;
+			}
+
+			int curIndex = listBoxZones.SelectedIndex;
+			var zone_data = xnr.ZoneData.ElementAt( curIndex ).Value;
+			zone_data.monster_level = (byte)numMonsterLevel.Value;
 		}
 	}
 }

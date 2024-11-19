@@ -29,10 +29,10 @@
 		private void InitializeComponent()
 		{
 			this.components = new System.ComponentModel.Container();
-			System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-			System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
-			System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
-			System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+			System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
+			System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
+			System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
+			System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
 			this.tabControl1 = new System.Windows.Forms.TabControl();
 			this.tabPage1 = new System.Windows.Forms.TabPage();
 			this.label8 = new System.Windows.Forms.Label();
@@ -434,7 +434,7 @@
 			this.numMonsterLevel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
 			this.numMonsterLevel.Location = new System.Drawing.Point(104, 14);
 			this.numMonsterLevel.Maximum = new decimal(new int[] {
-            200,
+            255,
             0,
             0,
             0});
@@ -452,6 +452,7 @@
             0,
             0,
             0});
+			this.numMonsterLevel.ValueChanged += new System.EventHandler(this.numMonsterLevel_ValueChanged);
 			// 
 			// tabControl3
 			// 
@@ -954,8 +955,8 @@
 			// Column18
 			// 
 			this.Column18.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-			dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
-			this.Column18.DefaultCellStyle = dataGridViewCellStyle1;
+			dataGridViewCellStyle5.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
+			this.Column18.DefaultCellStyle = dataGridViewCellStyle5;
 			this.Column18.HeaderText = "Quest ID";
 			this.Column18.Name = "Column18";
 			this.Column18.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
@@ -963,8 +964,8 @@
 			// Column19
 			// 
 			this.Column19.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-			dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
-			this.Column19.DefaultCellStyle = dataGridViewCellStyle2;
+			dataGridViewCellStyle6.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
+			this.Column19.DefaultCellStyle = dataGridViewCellStyle6;
 			this.Column19.HeaderText = "Zone ID";
 			this.Column19.Name = "Column19";
 			this.Column19.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
@@ -972,8 +973,8 @@
 			// Column20
 			// 
 			this.Column20.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-			dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
-			this.Column20.DefaultCellStyle = dataGridViewCellStyle3;
+			dataGridViewCellStyle7.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
+			this.Column20.DefaultCellStyle = dataGridViewCellStyle7;
 			this.Column20.HeaderText = "Map ID";
 			this.Column20.Name = "Column20";
 			this.Column20.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
@@ -981,8 +982,8 @@
 			// Column21
 			// 
 			this.Column21.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-			dataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
-			this.Column21.DefaultCellStyle = dataGridViewCellStyle4;
+			dataGridViewCellStyle8.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
+			this.Column21.DefaultCellStyle = dataGridViewCellStyle8;
 			this.Column21.HeaderText = "Entrance ID";
 			this.Column21.Name = "Column21";
 			this.Column21.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
