@@ -29,10 +29,10 @@
 		private void InitializeComponent()
 		{
 			this.components = new System.ComponentModel.Container();
-			System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
-			System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
-			System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
-			System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
+			System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+			System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+			System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+			System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
 			this.tabControl1 = new System.Windows.Forms.TabControl();
 			this.tabPage1 = new System.Windows.Forms.TabPage();
 			this.label8 = new System.Windows.Forms.Label();
@@ -145,6 +145,26 @@
 			this.contextMenuRewardItem = new System.Windows.Forms.ContextMenuStrip(this.components);
 			this.moveUpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.moveDownToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.groupBox14 = new System.Windows.Forms.GroupBox();
+			this.label23 = new System.Windows.Forms.Label();
+			this.label24 = new System.Windows.Forms.Label();
+			this.label25 = new System.Windows.Forms.Label();
+			this.label26 = new System.Windows.Forms.Label();
+			this.numWarpEntryEntranceID = new System.Windows.Forms.NumericUpDown();
+			this.numWarpEntryMapID = new System.Windows.Forms.NumericUpDown();
+			this.numWarpEntryZoneID = new System.Windows.Forms.NumericUpDown();
+			this.numWarpEntryQuestID = new System.Windows.Forms.NumericUpDown();
+			this.numWarpExitEntranceID = new System.Windows.Forms.NumericUpDown();
+			this.numWarpExitMapID = new System.Windows.Forms.NumericUpDown();
+			this.numWarpExitZoneID = new System.Windows.Forms.NumericUpDown();
+			this.numWarpExitQuestID = new System.Windows.Forms.NumericUpDown();
+			this.numWarpFailEntranceID = new System.Windows.Forms.NumericUpDown();
+			this.numWarpFailMapID = new System.Windows.Forms.NumericUpDown();
+			this.numWarpFailZoneID = new System.Windows.Forms.NumericUpDown();
+			this.numWarpFailQuestID = new System.Windows.Forms.NumericUpDown();
+			this.label27 = new System.Windows.Forms.Label();
+			this.label28 = new System.Windows.Forms.Label();
+			this.label29 = new System.Windows.Forms.Label();
 			this.tabControl1.SuspendLayout();
 			this.tabPage1.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.numQuestDifficulty)).BeginInit();
@@ -195,6 +215,19 @@
 			this.groupBox8.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.dataGridViewBooleanFlags)).BeginInit();
 			this.contextMenuRewardItem.SuspendLayout();
+			this.groupBox14.SuspendLayout();
+			((System.ComponentModel.ISupportInitialize)(this.numWarpEntryEntranceID)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.numWarpEntryMapID)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.numWarpEntryZoneID)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.numWarpEntryQuestID)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.numWarpExitEntranceID)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.numWarpExitMapID)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.numWarpExitZoneID)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.numWarpExitQuestID)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.numWarpFailEntranceID)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.numWarpFailMapID)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.numWarpFailZoneID)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.numWarpFailQuestID)).BeginInit();
 			this.SuspendLayout();
 			// 
 			// tabControl1
@@ -217,6 +250,7 @@
 			// 
 			// tabPage1
 			// 
+			this.tabPage1.Controls.Add(this.groupBox14);
 			this.tabPage1.Controls.Add(this.label8);
 			this.tabPage1.Controls.Add(this.label7);
 			this.tabPage1.Controls.Add(this.numQuestDifficulty);
@@ -955,8 +989,8 @@
 			// Column18
 			// 
 			this.Column18.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-			dataGridViewCellStyle5.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
-			this.Column18.DefaultCellStyle = dataGridViewCellStyle5;
+			dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
+			this.Column18.DefaultCellStyle = dataGridViewCellStyle1;
 			this.Column18.HeaderText = "Quest ID";
 			this.Column18.Name = "Column18";
 			this.Column18.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
@@ -964,8 +998,8 @@
 			// Column19
 			// 
 			this.Column19.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-			dataGridViewCellStyle6.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
-			this.Column19.DefaultCellStyle = dataGridViewCellStyle6;
+			dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
+			this.Column19.DefaultCellStyle = dataGridViewCellStyle2;
 			this.Column19.HeaderText = "Zone ID";
 			this.Column19.Name = "Column19";
 			this.Column19.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
@@ -973,8 +1007,8 @@
 			// Column20
 			// 
 			this.Column20.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-			dataGridViewCellStyle7.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
-			this.Column20.DefaultCellStyle = dataGridViewCellStyle7;
+			dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
+			this.Column20.DefaultCellStyle = dataGridViewCellStyle3;
 			this.Column20.HeaderText = "Map ID";
 			this.Column20.Name = "Column20";
 			this.Column20.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
@@ -982,8 +1016,8 @@
 			// Column21
 			// 
 			this.Column21.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-			dataGridViewCellStyle8.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
-			this.Column21.DefaultCellStyle = dataGridViewCellStyle8;
+			dataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
+			this.Column21.DefaultCellStyle = dataGridViewCellStyle4;
 			this.Column21.HeaderText = "Entrance ID";
 			this.Column21.Name = "Column21";
 			this.Column21.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
@@ -1494,6 +1528,337 @@
 			this.moveDownToolStripMenuItem.Size = new System.Drawing.Size(138, 22);
 			this.moveDownToolStripMenuItem.Text = "Move Down";
 			// 
+			// groupBox14
+			// 
+			this.groupBox14.Controls.Add(this.label29);
+			this.groupBox14.Controls.Add(this.numWarpFailEntranceID);
+			this.groupBox14.Controls.Add(this.numWarpFailMapID);
+			this.groupBox14.Controls.Add(this.label28);
+			this.groupBox14.Controls.Add(this.numWarpFailZoneID);
+			this.groupBox14.Controls.Add(this.numWarpFailQuestID);
+			this.groupBox14.Controls.Add(this.label27);
+			this.groupBox14.Controls.Add(this.numWarpExitEntranceID);
+			this.groupBox14.Controls.Add(this.numWarpExitMapID);
+			this.groupBox14.Controls.Add(this.numWarpExitZoneID);
+			this.groupBox14.Controls.Add(this.numWarpExitQuestID);
+			this.groupBox14.Controls.Add(this.label23);
+			this.groupBox14.Controls.Add(this.label24);
+			this.groupBox14.Controls.Add(this.label25);
+			this.groupBox14.Controls.Add(this.label26);
+			this.groupBox14.Controls.Add(this.numWarpEntryEntranceID);
+			this.groupBox14.Controls.Add(this.numWarpEntryMapID);
+			this.groupBox14.Controls.Add(this.numWarpEntryZoneID);
+			this.groupBox14.Controls.Add(this.numWarpEntryQuestID);
+			this.groupBox14.Location = new System.Drawing.Point(445, 12);
+			this.groupBox14.Name = "groupBox14";
+			this.groupBox14.Size = new System.Drawing.Size(516, 118);
+			this.groupBox14.TabIndex = 17;
+			this.groupBox14.TabStop = false;
+			this.groupBox14.Text = "Default Warps";
+			// 
+			// label23
+			// 
+			this.label23.AutoSize = true;
+			this.label23.Location = new System.Drawing.Point(435, 16);
+			this.label23.Name = "label23";
+			this.label23.Size = new System.Drawing.Size(45, 13);
+			this.label23.TabIndex = 9;
+			this.label23.Text = "Entry ID";
+			// 
+			// label24
+			// 
+			this.label24.AutoSize = true;
+			this.label24.Location = new System.Drawing.Point(369, 16);
+			this.label24.Name = "label24";
+			this.label24.Size = new System.Drawing.Size(46, 13);
+			this.label24.TabIndex = 8;
+			this.label24.Text = "Zone ID";
+			// 
+			// label25
+			// 
+			this.label25.AutoSize = true;
+			this.label25.Location = new System.Drawing.Point(284, 16);
+			this.label25.Name = "label25";
+			this.label25.Size = new System.Drawing.Size(42, 13);
+			this.label25.TabIndex = 7;
+			this.label25.Text = "Map ID";
+			// 
+			// label26
+			// 
+			this.label26.AutoSize = true;
+			this.label26.Location = new System.Drawing.Point(167, 16);
+			this.label26.Name = "label26";
+			this.label26.Size = new System.Drawing.Size(49, 13);
+			this.label26.TabIndex = 6;
+			this.label26.Text = "Quest ID";
+			// 
+			// numWarpEntryEntranceID
+			// 
+			this.numWarpEntryEntranceID.BackColor = System.Drawing.SystemColors.Window;
+			this.numWarpEntryEntranceID.Location = new System.Drawing.Point(438, 32);
+			this.numWarpEntryEntranceID.Maximum = new decimal(new int[] {
+            99999999,
+            0,
+            0,
+            0});
+			this.numWarpEntryEntranceID.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            -2147483648});
+			this.numWarpEntryEntranceID.Name = "numWarpEntryEntranceID";
+			this.numWarpEntryEntranceID.Size = new System.Drawing.Size(60, 20);
+			this.numWarpEntryEntranceID.TabIndex = 5;
+			this.numWarpEntryEntranceID.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+			this.numWarpEntryEntranceID.ValueChanged += new System.EventHandler(this.numWarpEntryEntranceID_ValueChanged);
+			// 
+			// numWarpEntryMapID
+			// 
+			this.numWarpEntryMapID.BackColor = System.Drawing.SystemColors.Window;
+			this.numWarpEntryMapID.Location = new System.Drawing.Point(287, 32);
+			this.numWarpEntryMapID.Maximum = new decimal(new int[] {
+            99999999,
+            0,
+            0,
+            0});
+			this.numWarpEntryMapID.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            -2147483648});
+			this.numWarpEntryMapID.Name = "numWarpEntryMapID";
+			this.numWarpEntryMapID.Size = new System.Drawing.Size(79, 20);
+			this.numWarpEntryMapID.TabIndex = 4;
+			this.numWarpEntryMapID.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+			this.numWarpEntryMapID.ValueChanged += new System.EventHandler(this.numWarpEntryMapID_ValueChanged);
+			// 
+			// numWarpEntryZoneID
+			// 
+			this.numWarpEntryZoneID.BackColor = System.Drawing.SystemColors.Window;
+			this.numWarpEntryZoneID.Location = new System.Drawing.Point(372, 32);
+			this.numWarpEntryZoneID.Maximum = new decimal(new int[] {
+            99999999,
+            0,
+            0,
+            0});
+			this.numWarpEntryZoneID.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            -2147483648});
+			this.numWarpEntryZoneID.Name = "numWarpEntryZoneID";
+			this.numWarpEntryZoneID.Size = new System.Drawing.Size(60, 20);
+			this.numWarpEntryZoneID.TabIndex = 3;
+			this.numWarpEntryZoneID.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+			this.numWarpEntryZoneID.ValueChanged += new System.EventHandler(this.numWarpEntryZoneID_ValueChanged);
+			// 
+			// numWarpEntryQuestID
+			// 
+			this.numWarpEntryQuestID.BackColor = System.Drawing.SystemColors.Window;
+			this.numWarpEntryQuestID.Location = new System.Drawing.Point(170, 32);
+			this.numWarpEntryQuestID.Maximum = new decimal(new int[] {
+            99999999,
+            0,
+            0,
+            0});
+			this.numWarpEntryQuestID.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            -2147483648});
+			this.numWarpEntryQuestID.Name = "numWarpEntryQuestID";
+			this.numWarpEntryQuestID.Size = new System.Drawing.Size(111, 20);
+			this.numWarpEntryQuestID.TabIndex = 2;
+			this.numWarpEntryQuestID.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+			this.numWarpEntryQuestID.ValueChanged += new System.EventHandler(this.numWarpEntryQuestID_ValueChanged);
+			// 
+			// numWarpExitEntranceID
+			// 
+			this.numWarpExitEntranceID.BackColor = System.Drawing.SystemColors.Window;
+			this.numWarpExitEntranceID.Location = new System.Drawing.Point(438, 58);
+			this.numWarpExitEntranceID.Maximum = new decimal(new int[] {
+            99999999,
+            0,
+            0,
+            0});
+			this.numWarpExitEntranceID.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            -2147483648});
+			this.numWarpExitEntranceID.Name = "numWarpExitEntranceID";
+			this.numWarpExitEntranceID.Size = new System.Drawing.Size(60, 20);
+			this.numWarpExitEntranceID.TabIndex = 13;
+			this.numWarpExitEntranceID.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+			this.numWarpExitEntranceID.ValueChanged += new System.EventHandler(this.numWarpExitEntranceID_ValueChanged);
+			// 
+			// numWarpExitMapID
+			// 
+			this.numWarpExitMapID.BackColor = System.Drawing.SystemColors.Window;
+			this.numWarpExitMapID.Location = new System.Drawing.Point(287, 58);
+			this.numWarpExitMapID.Maximum = new decimal(new int[] {
+            99999999,
+            0,
+            0,
+            0});
+			this.numWarpExitMapID.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            -2147483648});
+			this.numWarpExitMapID.Name = "numWarpExitMapID";
+			this.numWarpExitMapID.Size = new System.Drawing.Size(79, 20);
+			this.numWarpExitMapID.TabIndex = 12;
+			this.numWarpExitMapID.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+			this.numWarpExitMapID.ValueChanged += new System.EventHandler(this.numWarpExitMapID_ValueChanged);
+			// 
+			// numWarpExitZoneID
+			// 
+			this.numWarpExitZoneID.BackColor = System.Drawing.SystemColors.Window;
+			this.numWarpExitZoneID.Location = new System.Drawing.Point(372, 58);
+			this.numWarpExitZoneID.Maximum = new decimal(new int[] {
+            99999999,
+            0,
+            0,
+            0});
+			this.numWarpExitZoneID.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            -2147483648});
+			this.numWarpExitZoneID.Name = "numWarpExitZoneID";
+			this.numWarpExitZoneID.Size = new System.Drawing.Size(60, 20);
+			this.numWarpExitZoneID.TabIndex = 11;
+			this.numWarpExitZoneID.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+			this.numWarpExitZoneID.ValueChanged += new System.EventHandler(this.numWarpExitZoneID_ValueChanged);
+			// 
+			// numWarpExitQuestID
+			// 
+			this.numWarpExitQuestID.BackColor = System.Drawing.SystemColors.Window;
+			this.numWarpExitQuestID.Location = new System.Drawing.Point(170, 58);
+			this.numWarpExitQuestID.Maximum = new decimal(new int[] {
+            99999999,
+            0,
+            0,
+            0});
+			this.numWarpExitQuestID.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            -2147483648});
+			this.numWarpExitQuestID.Name = "numWarpExitQuestID";
+			this.numWarpExitQuestID.Size = new System.Drawing.Size(111, 20);
+			this.numWarpExitQuestID.TabIndex = 10;
+			this.numWarpExitQuestID.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+			this.numWarpExitQuestID.ValueChanged += new System.EventHandler(this.numWarpExitQuestID_ValueChanged);
+			// 
+			// numWarpFailEntranceID
+			// 
+			this.numWarpFailEntranceID.BackColor = System.Drawing.SystemColors.Window;
+			this.numWarpFailEntranceID.Location = new System.Drawing.Point(438, 84);
+			this.numWarpFailEntranceID.Maximum = new decimal(new int[] {
+            99999999,
+            0,
+            0,
+            0});
+			this.numWarpFailEntranceID.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            -2147483648});
+			this.numWarpFailEntranceID.Name = "numWarpFailEntranceID";
+			this.numWarpFailEntranceID.Size = new System.Drawing.Size(60, 20);
+			this.numWarpFailEntranceID.TabIndex = 17;
+			this.numWarpFailEntranceID.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+			this.numWarpFailEntranceID.ValueChanged += new System.EventHandler(this.numWarpFailEntranceID_ValueChanged);
+			// 
+			// numWarpFailMapID
+			// 
+			this.numWarpFailMapID.BackColor = System.Drawing.SystemColors.Window;
+			this.numWarpFailMapID.Location = new System.Drawing.Point(287, 84);
+			this.numWarpFailMapID.Maximum = new decimal(new int[] {
+            99999999,
+            0,
+            0,
+            0});
+			this.numWarpFailMapID.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            -2147483648});
+			this.numWarpFailMapID.Name = "numWarpFailMapID";
+			this.numWarpFailMapID.Size = new System.Drawing.Size(79, 20);
+			this.numWarpFailMapID.TabIndex = 16;
+			this.numWarpFailMapID.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+			this.numWarpFailMapID.ValueChanged += new System.EventHandler(this.numWarpFailMapID_ValueChanged);
+			// 
+			// numWarpFailZoneID
+			// 
+			this.numWarpFailZoneID.BackColor = System.Drawing.SystemColors.Window;
+			this.numWarpFailZoneID.Location = new System.Drawing.Point(372, 84);
+			this.numWarpFailZoneID.Maximum = new decimal(new int[] {
+            99999999,
+            0,
+            0,
+            0});
+			this.numWarpFailZoneID.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            -2147483648});
+			this.numWarpFailZoneID.Name = "numWarpFailZoneID";
+			this.numWarpFailZoneID.Size = new System.Drawing.Size(60, 20);
+			this.numWarpFailZoneID.TabIndex = 15;
+			this.numWarpFailZoneID.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+			this.numWarpFailZoneID.ValueChanged += new System.EventHandler(this.numWarpFailZoneID_ValueChanged);
+			// 
+			// numWarpFailQuestID
+			// 
+			this.numWarpFailQuestID.BackColor = System.Drawing.SystemColors.Window;
+			this.numWarpFailQuestID.Location = new System.Drawing.Point(170, 84);
+			this.numWarpFailQuestID.Maximum = new decimal(new int[] {
+            99999999,
+            0,
+            0,
+            0});
+			this.numWarpFailQuestID.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            -2147483648});
+			this.numWarpFailQuestID.Name = "numWarpFailQuestID";
+			this.numWarpFailQuestID.Size = new System.Drawing.Size(111, 20);
+			this.numWarpFailQuestID.TabIndex = 14;
+			this.numWarpFailQuestID.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+			this.numWarpFailQuestID.ValueChanged += new System.EventHandler(this.numWarpFailQuestID_ValueChanged);
+			// 
+			// label27
+			// 
+			this.label27.AutoSize = true;
+			this.label27.Location = new System.Drawing.Point(15, 32);
+			this.label27.Name = "label27";
+			this.label27.Size = new System.Drawing.Size(83, 13);
+			this.label27.TabIndex = 18;
+			this.label27.Text = "Trial Entry Warp";
+			// 
+			// label28
+			// 
+			this.label28.AutoSize = true;
+			this.label28.Location = new System.Drawing.Point(15, 58);
+			this.label28.Name = "label28";
+			this.label28.Size = new System.Drawing.Size(76, 13);
+			this.label28.TabIndex = 19;
+			this.label28.Text = "Trial Exit Warp";
+			// 
+			// label29
+			// 
+			this.label29.AutoSize = true;
+			this.label29.Location = new System.Drawing.Point(15, 84);
+			this.label29.Name = "label29";
+			this.label29.Size = new System.Drawing.Size(75, 13);
+			this.label29.TabIndex = 20;
+			this.label29.Text = "Trial Fail Warp";
+			// 
 			// QuestXnrViewer
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1559,6 +1924,20 @@
 			this.groupBox8.ResumeLayout(false);
 			((System.ComponentModel.ISupportInitialize)(this.dataGridViewBooleanFlags)).EndInit();
 			this.contextMenuRewardItem.ResumeLayout(false);
+			this.groupBox14.ResumeLayout(false);
+			this.groupBox14.PerformLayout();
+			((System.ComponentModel.ISupportInitialize)(this.numWarpEntryEntranceID)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.numWarpEntryMapID)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.numWarpEntryZoneID)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.numWarpEntryQuestID)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.numWarpExitEntranceID)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.numWarpExitMapID)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.numWarpExitZoneID)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.numWarpExitQuestID)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.numWarpFailEntranceID)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.numWarpFailMapID)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.numWarpFailZoneID)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.numWarpFailQuestID)).EndInit();
 			this.ResumeLayout(false);
 
 		}
@@ -1677,5 +2056,25 @@
 		private System.Windows.Forms.DataGridView dataGridViewBooleanFlags;
 		private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn1;
 		private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn2;
+		private System.Windows.Forms.GroupBox groupBox14;
+		private System.Windows.Forms.Label label29;
+		private System.Windows.Forms.NumericUpDown numWarpFailEntranceID;
+		private System.Windows.Forms.NumericUpDown numWarpFailMapID;
+		private System.Windows.Forms.Label label28;
+		private System.Windows.Forms.NumericUpDown numWarpFailZoneID;
+		private System.Windows.Forms.NumericUpDown numWarpFailQuestID;
+		private System.Windows.Forms.Label label27;
+		private System.Windows.Forms.NumericUpDown numWarpExitEntranceID;
+		private System.Windows.Forms.NumericUpDown numWarpExitMapID;
+		private System.Windows.Forms.NumericUpDown numWarpExitZoneID;
+		private System.Windows.Forms.NumericUpDown numWarpExitQuestID;
+		private System.Windows.Forms.Label label23;
+		private System.Windows.Forms.Label label24;
+		private System.Windows.Forms.Label label25;
+		private System.Windows.Forms.Label label26;
+		private System.Windows.Forms.NumericUpDown numWarpEntryEntranceID;
+		private System.Windows.Forms.NumericUpDown numWarpEntryMapID;
+		private System.Windows.Forms.NumericUpDown numWarpEntryZoneID;
+		private System.Windows.Forms.NumericUpDown numWarpEntryQuestID;
 	}
 }

@@ -294,6 +294,23 @@ namespace psu_generic_parser.Forms.FileViewers
 			{
 				listBoxZones.SelectedIndex = 0;
 			}
+
+			//Default Warps
+			this.numWarpEntryQuestID.Value = xnr.entrance_warp.quest_id;
+			this.numWarpEntryZoneID.Value = xnr.entrance_warp.zone_id;
+			this.numWarpEntryMapID.Value = xnr.entrance_warp.map_id;
+			this.numWarpEntryEntranceID.Value = xnr.entrance_warp.entrance_id;
+
+			this.numWarpExitQuestID.Value = xnr.exit_warp.quest_id;
+			this.numWarpExitZoneID.Value = xnr.exit_warp.zone_id;
+			this.numWarpExitMapID.Value = xnr.exit_warp.map_id;
+			this.numWarpExitEntranceID.Value = xnr.exit_warp.entrance_id;
+
+			this.numWarpFailQuestID.Value = xnr.failed_warp.quest_id;
+			this.numWarpFailZoneID.Value = xnr.failed_warp.zone_id;
+			this.numWarpFailMapID.Value = xnr.failed_warp.map_id;
+			this.numWarpFailEntranceID.Value = xnr.failed_warp.entrance_id;
+
 		}
 
 		string ToItemID( uint id )
@@ -950,6 +967,66 @@ namespace psu_generic_parser.Forms.FileViewers
 			int curIndex = listBoxZones.SelectedIndex;
 			var zone_data = xnr.ZoneData.ElementAt( curIndex ).Value;
 			zone_data.monster_level = (byte)numMonsterLevel.Value;
+		}
+
+		private void numWarpEntryQuestID_ValueChanged( object sender, EventArgs e )
+		{
+			xnr.entrance_warp.quest_id = (int)numWarpEntryQuestID.Value;
+		}
+
+		private void numWarpExitQuestID_ValueChanged( object sender, EventArgs e )
+		{
+			xnr.exit_warp.quest_id = (int)numWarpExitQuestID.Value;
+		}
+
+		private void numWarpFailQuestID_ValueChanged( object sender, EventArgs e )
+		{
+			xnr.failed_warp.quest_id = (int)numWarpFailQuestID.Value;
+		}
+
+		private void numWarpEntryMapID_ValueChanged( object sender, EventArgs e )
+		{
+			xnr.entrance_warp.map_id = (short)numWarpEntryMapID.Value;
+		}
+
+		private void numWarpExitMapID_ValueChanged( object sender, EventArgs e )
+		{
+			xnr.exit_warp.map_id = (short)numWarpExitMapID.Value;
+		}
+
+		private void numWarpFailMapID_ValueChanged( object sender, EventArgs e )
+		{
+			xnr.failed_warp.map_id = (short)numWarpFailMapID.Value;
+		}
+
+		private void numWarpEntryZoneID_ValueChanged( object sender, EventArgs e )
+		{
+			xnr.entrance_warp.zone_id = (short)numWarpEntryZoneID.Value;
+		}
+
+		private void numWarpExitZoneID_ValueChanged( object sender, EventArgs e )
+		{
+			xnr.exit_warp.zone_id = (short)numWarpExitZoneID.Value;
+		}
+
+		private void numWarpFailZoneID_ValueChanged( object sender, EventArgs e )
+		{
+			xnr.failed_warp.zone_id = (short)numWarpFailZoneID.Value;
+		}
+
+		private void numWarpEntryEntranceID_ValueChanged( object sender, EventArgs e )
+		{
+			xnr.entrance_warp.entrance_id = (int)numWarpEntryEntranceID.Value;
+		}
+
+		private void numWarpExitEntranceID_ValueChanged( object sender, EventArgs e )
+		{
+			xnr.exit_warp.entrance_id = (int)numWarpExitEntranceID.Value;
+		}
+
+		private void numWarpFailEntranceID_ValueChanged( object sender, EventArgs e )
+		{
+			xnr.failed_warp.entrance_id = (int)numWarpFailEntranceID.Value;
 		}
 	}
 }
