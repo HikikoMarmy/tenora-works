@@ -247,6 +247,8 @@ namespace psu_generic_parser
 					if (!subroutineListBox.Items.Contains(sub.SubroutineName))
 						subroutineListBox.Items.Add(sub.SubroutineName);
 				}
+
+				buildLookupDictionary();
 			}
 		}
 
