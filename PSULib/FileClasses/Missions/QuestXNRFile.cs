@@ -46,7 +46,7 @@ namespace PSULib.FileClasses.Missions
 
 			public List<int> conditions = new List<int>();
 		};
-		public List<QuestItemEntry> quest_items = new List<QuestItemEntry>();
+		public Dictionary<int,QuestItemEntry> quest_items = new Dictionary<int,QuestItemEntry>();
 
 		public class ClearScoreTask
 		{
@@ -352,7 +352,7 @@ namespace PSULib.FileClasses.Missions
 
 				entry.conditions = new List<int>();
 
-				quest_items.Add( entry );
+				quest_items.Add( entry.item_index, entry );
 			}
 		}
 

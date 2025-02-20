@@ -261,15 +261,15 @@ namespace psu_generic_parser.Forms.FileViewers
 			foreach( var item in xnr.quest_items )
 			{
 				dataGridViewQuestItem.Rows.Add(
-					item.item_index,
-					ToItemID( item.item_id ),
-					_quest_item_type.ElementAt( item.reward_type ),
-					_element_type.ElementAt( item.element ),
-					item.element_type,
-					item.min_element_percent,
-					item.max_element_percent,
-					item.quantity,
-					item.meseta );
+					item.Key,
+					ToItemID( item.Value.item_id ),
+					_quest_item_type.ElementAt( item.Value.reward_type ),
+					_element_type.ElementAt( item.Value.element ),
+					item.Value.element_type,
+					item.Value.min_element_percent,
+					item.Value.max_element_percent,
+					item.Value.quantity,
+					item.Value.meseta );
 			}
 
 			// Warp Data
@@ -779,7 +779,7 @@ namespace psu_generic_parser.Forms.FileViewers
 			// New Entry, make a blank
 			if( e.RowIndex >= xnr.quest_items.Count )
 			{
-				xnr.quest_items.Add( new QuestXNRFile.QuestItemEntry() );
+				xnr.quest_items.Add( 0, new QuestXNRFile.QuestItemEntry() );
 				currentIndex = xnr.quest_items.Count - 1;
 			}
 
